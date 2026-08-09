@@ -1,0 +1,80 @@
+name: discover unlisted plugins
+
+# A hand-compiled directory only grows when someone remembers to send a link —
+# the same discovery problem the list exists to solve. This sweeps GitHub weekly
+# and keeps ONE issue up to date with what is missing. It never edits README.md:
+# an entry needs a human sentence and the right section, and an auto-appended
+# list of repo blurbs would be a worse directory than none.
+
+on:
+  schedule:
+    - cron: "0 9 * * 1" # Mondays, 09:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: discover
+  cancel-in-progress: false
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Sweep for unlisted plugins
+        id: sweep
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          # stderr carries the counts and goes to the job log, so a quiet week is
+          # still explainable: "found nothing" and "looked at nothing" must not
+          # produce the same output.
+          node scripts/discover.mjs > report.md
+          if [ -s report.md ]; then echo "found=true" >> "$GITHUB_OUTPUT"; else echo "found=false" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Open or update the tracking issue
+        if: steps.sweep.outputs.found == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          TITLE="Unlisted bb plugins"
+          {
+            cat report.md
+            echo
+            echo "---"
+            echo "_Swept by [\`scripts/discover.mjs\`](../blob/main/scripts/discover.mjs) on $(date -u '+%Y-%m-%d'). "
+            echo "This issue is rewritten each run, so ticking a box will not survive — add the entry to README.md instead._"
+          } > issue.md
+          # One issue, updated in place. A new issue per week would be its own
+          # kind of noise, and the point is a list that stays current.
+          NUM=$(gh issue list --state open --search "$TITLE in:title" --json number,title \
+                  --jq ".[] | select(.title == \"$TITLE\") | .number" | head -1)
+          if [ -n "$NUM" ]; then
+            gh issue edit "$NUM" --body-file issue.md
+            echo "updated issue #$NUM"
+          else
+            gh issue create --title "$TITLE" --body-file issue.md
+          fi
+
+      - name: Close the tracking issue when nothing is missing
+        if: steps.sweep.outputs.found == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          TITLE="Unlisted bb plugins"
+          NUM=$(gh issue list --state open --search "$TITLE in:title" --json number,title \
+                  --jq ".[] | select(.title == \"$TITLE\") | .number" | head -1)
+          if [ -n "$NUM" ]; then
+            gh issue close "$NUM" --comment "Everything the sweep can find is now listed."
+          fi
