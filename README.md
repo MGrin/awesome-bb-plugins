@@ -72,6 +72,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 
 - [bb-plugin-ios-notifications](https://github.com/vburojevic/bb-plugin-ios-notifications) — Web Push to your iPhone when a thread finishes or fails.
 - [bb-plugin-notify](https://github.com/agustif/bb-plugin-notify) — agent-to-user pings as an in-app toast or a webhook, with quiet hours.
+- [bb-plugin-telegram](https://github.com/MGrin/bb-plugin-telegram) — pushes thread escalations to Telegram, with an `escalate` tool that errors when delivery fails; replies can steer a thread once you opt in.
 
 ## Integrations
 
