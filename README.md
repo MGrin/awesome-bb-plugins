@@ -33,6 +33,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 
 - [bb-plugin-bus](https://github.com/MGrin/bb-plugin-bus) — peer messaging between threads; addressed sends wake the recipient with a real turn, so no listener process is needed.
 - [bb-plugin-auto-sections](https://github.com/benegessarit/bb-plugin-auto-sections) — files task-keyed threads into sidebar sections automatically.
+- [bb-plugin-attention](https://github.com/MGrin/bb-plugin-attention) — replaces the sidebar list so threads blocked on you, failed, or freshly finished sit at the top.
 - [thread-organizer](https://github.com/brsbl/bb-plugins) — organize threads in the sidebar.
 - [thread-hover-cards](https://github.com/brsbl/bb-plugins) — preview a thread on hover.
 - [timeline-comments](https://github.com/brsbl/bb-plugins) — comment on the thread timeline.
