@@ -38,7 +38,6 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [timeline-comments](https://github.com/brsbl/bb-plugins) — comment on the thread timeline.
 - [bb-plugin-next-steps](https://github.com/portseif/bb-plugin-next-steps) — suggests next steps above an empty composer.
 - [prompt-shaper](https://github.com/brsbl/bb-plugins) — improve a prompt before sending it.
-- [bb-plugin-conductor-workspaces](https://github.com/budah1987/bb-plugin-conductor-workspaces) — Conductor-style workspace and conversation sidebar.
 - [auto-new-tab](https://github.com/patleeman/bb-plugins) · [sessions](https://github.com/patleeman/bb-plugins) · [prime-agent](https://github.com/patleeman/bb-plugins)
 - [bb-plugin-todo](https://github.com/agustif/bb-plugin-todo) — hierarchical session todos with nested sub-tasks, `dependsOn`/`requires`, and dispatch to multiple agents.
 - [bb-plugin-session-goal](https://github.com/agustif/bb-plugin-session-goal) — keeps a session's goal and success criteria on a composer card so they stay in view.
@@ -52,7 +51,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 
 ## Code intelligence
 
-- [bb-plugin-code-intelligence](https://github.com/mywwave/bb-plugin-code-intelligence) — tree-sitter code search and impact analysis.
+- [bb-plugin-code-intelligence](https://github.com/mywwave/bb-plugin-code-intelligence) — tree-sitter code search and impact analysis. **(unmaintained — upstream archived the repo)**
 - [design-doctrine](https://github.com/brsbl/bb-plugins) — design guidance for agents.
 
 ## Host & environment
@@ -72,7 +71,6 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 
 - [bb-plugin-ios-notifications](https://github.com/vburojevic/bb-plugin-ios-notifications) — Web Push to your iPhone when a thread finishes or fails.
 - [bb-plugin-notify](https://github.com/agustif/bb-plugin-notify) — agent-to-user pings as an in-app toast or a webhook, with quiet hours.
-- [bb-plugin-telegram](https://github.com/MGrin/bb-plugin-telegram) — pushes thread escalations to Telegram, with an `escalate` tool that errors when delivery fails; replies can steer a thread once you opt in.
 
 ## Integrations
 
