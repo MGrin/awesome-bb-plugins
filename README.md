@@ -62,6 +62,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [stay-awake](https://github.com/jssblck/bb-plugins) — keep the host awake while work runs.
 - [codex-environments](https://github.com/jssblck/bb-plugins) — Codex environment management.
 - [bb-plugin-accounts](https://github.com/MGrin/bb-plugin-accounts) — Claude Max account usage and auto-switching, with thread auto-continue after a rate limit.
+- [bb-plugin-cf-tunnel](https://github.com/MGrin/bb-plugin-cf-tunnel) — reach bb remotely over your own Cloudflare Tunnel and Access policy, with expiring shared ports.
 
 ## Memory & knowledge
 
