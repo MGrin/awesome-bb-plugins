@@ -88,7 +88,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [bb-plugin-ayu](https://github.com/vburojevic/bb-plugin-ayu) — ayu themes plus a palette explorer.
 - [bb-plugin-sidebar-sync](https://github.com/MGrin/bb-plugin-sidebar-sync) — keeps the sidebar arrangement — nav order, hidden rows, collapsed sections — the same in every bb UI; width and open state stay per-device.
 - [ds4](https://github.com/patleeman/bb-plugins) — design-system theming.
-- [bb-plugin-fontsize](https://github.com/jmporchet/bb-plugin-fontsize) — scale the whole bb interface from a button in the sidebar footer.
+- [bb-plugin-fontsize](https://github.com/jmporchet/bb-plugin-fontsize) — scales the whole interface from a sidebar footer button that cycles 13/16/20/26px, plus a settings panel with ±1px control; the size is stored per device.
 
 ## Fun
 
