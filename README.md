@@ -31,6 +31,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 
 ## Threads & workflow
 
+- [bb-plugin-advisor](https://github.com/salemsayed/bb-plugin-advisor) — reviews a coding thread with a second model in a hidden reviewer thread; a pre-final agent tool plus post-turn review, with findings that re-raise across turns until the reviewer re-checks and closes them.
 - [bb-plugin-bus](https://github.com/MGrin/bb-plugin-bus) — peer messaging between threads; addressed sends wake the recipient with a real turn, so no listener process is needed.
 - [bb-plugin-auto-sections](https://github.com/benegessarit/bb-plugin-auto-sections) — files task-keyed threads into sidebar sections automatically.
 - [thread-organizer](https://github.com/brsbl/bb-plugins) — organize threads in the sidebar.
