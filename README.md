@@ -86,6 +86,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 ## Appearance
 
 - [bb-plugin-ayu](https://github.com/vburojevic/bb-plugin-ayu) — ayu themes plus a palette explorer.
+- [bb-plugin-sidebar-sync](https://github.com/MGrin/bb-plugin-sidebar-sync) — keeps the sidebar arrangement — nav order, hidden rows, collapsed sections — the same in every bb UI; width and open state stay per-device.
 - [ds4](https://github.com/patleeman/bb-plugins) — design-system theming.
 
 ## Fun
