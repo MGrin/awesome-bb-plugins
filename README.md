@@ -80,6 +80,8 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [linear](https://github.com/galligan/bb-mate) — an independent Linear integration.
 - [telemetry](https://github.com/patleeman/bb-plugins) — usage telemetry.
 - [bb-plugin-exec-tracking](https://github.com/pixexid/llm-collab) — records provider/model/reasoning evidence per run.
+- [bb-plugin-argocd](https://github.com/Willhong/bb-plugin-argocd) — read-only Argo CD browser: application sync and health, managed resources, deploy history and pod logs, with agent tools and a `bb argocd` CLI.
+- [bb-plugin-jenkins](https://github.com/Willhong/bb-plugin-jenkins) — Jenkins jobs, builds and console logs as a panel, with agent tools, a `bb jenkins` CLI, and build triggering behind a confirmation.
 
 ## Appearance
 
