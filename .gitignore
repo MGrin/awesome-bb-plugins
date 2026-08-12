@@ -1,0 +1,4 @@
+
+# repo-steward copies the canonical awesome-triage workflow here from ~/Dev/dotfiles
+# at run time. Tracking it would make a second copy that drifts from the original.
+.bb/

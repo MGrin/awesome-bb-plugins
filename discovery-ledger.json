@@ -1,0 +1,25 @@
+{
+  "_readme": [
+    "Judgements the weekly sweep must not make again. Without this file scripts/discover.mjs",
+    "re-proposes everything anyone ever decided against, once a week, forever.",
+    "",
+    "declined[] — a plugin that was looked at and deliberately not listed. `plugin` is either",
+    "  'owner/repo' for a single-plugin repo or 'owner/repo/plugins/name' for one inside a",
+    "  monorepo, lowercase. A reason is required: the next person to read this is deciding",
+    "  whether the decision still holds, and 'no' on its own does not tell them.",
+    "",
+    "listedAs[] — a plugin that IS in README.md under a name the sweep cannot match to its",
+    "  directory. Only needed when the entry text and the folder disagree.",
+    "",
+    "Nothing here is permanent. A plugin declined for being unfinished belongs in the list once",
+    "it is finished — delete the entry and the next sweep will propose it again."
+  ],
+  "declined": [
+    {
+      "plugin": "smsunarto/bb-plugins/plugins/pr-walkthrough",
+      "reason": "Its own package.json description opens 'WORK IN PROGRESS — unfinished and unsupported'. The author is saying not to depend on it yet; the list should not say otherwise. Remove this entry when that wording goes.",
+      "at": "2026-08-12"
+    }
+  ],
+  "listedAs": []
+}
