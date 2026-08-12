@@ -19,6 +19,61 @@
       "plugin": "smsunarto/bb-plugins/plugins/pr-walkthrough",
       "reason": "Its own package.json description opens 'WORK IN PROGRESS — unfinished and unsupported'. The author is saying not to depend on it yet; the list should not say otherwise. Remove this entry when that wording goes.",
       "at": "2026-08-12"
+    },
+    {
+      "plugin": "amrtawfik160/hanoon",
+      "reason": "Real plugin, well built (SQLite control plane, FTS5 memory, reviewed pipeline with one-use approvals, 21 agent tools, 71 test files), and nothing else on the list drives bb from Telegram. Declined on trust: package.json sets 'private: true' (blocks installation, and its own quick start only documents a local 'bb plugin install .'), there is NO LICENSE file at all, and the repo was two days old with 6 commits when read. It hands whoever holds a Telegram chat full-permission shell and bb CLI across every connected machine — its own README says to use a disposable repo for the first live run. Re-propose once it has a license, 'private' removed, and a real commit history.",
+      "at": "2026-08-12"
+    },
+    {
+      "plugin": "smsunarto/bb-plugins/plugins/dotfiles",
+      "reason": "The author disqualifies it: the README badge reads 'status: personal · unsupported' and 'Not published to npm. Personal tooling, unsupported for external use... written against one specific dotfiles repository layout. Against a differently shaped repo, every row reads missing and every task fails.' package.json is 'private: true'. The file registry and fourteen mise task names are hardcoded to that author's repo, so a stranger installs a panel of red 'missing' badges. Not a code-quality complaint.",
+      "at": "2026-08-12"
+    },
+    {
+      "plugin": "brsbl/bb-plugins/packages/thread-history-maintenance",
+      "reason": "Not a plugin — an internal shared library. package.json is 'private: true', has no bb key, declares no server or app surface, and carries @bb/plugin-sdk only as a devDependency for types; index.ts exports one factory. The repo's own packages/README.md calls it 'the shared idle-episode queue used by Improve Prompt and Design Doctrine'. Genuine engineering (1085 lines plus 609 of vitest), just not something a reader can install. The actual plugins in that repo are listed separately.",
+      "at": "2026-08-12"
+    },
+    {
+      "plugin": "gmemmanuel/bbonductor",
+      "reason": "Its central claim does not hold. The pitch is many threads per branch/worktree, but the sidebar's '+ New thread in this workspace' calls openNewThread({projectId}) with no environment seed, so the thread lands wherever bb would have put it anyway; createWorkspaceFromLinear spawns into project-default rather than an issue-named worktree. The README lists both as the top unfinished items and docs/IMPLEMENTATION-NOTES.md opens 'Must validate against a live BB install'. v0.1.0-alpha.1, all 22 commits inside a ten-minute window on 2026-08-08, no tests, no CI. Re-propose once the existing-environment spawn works and it has run against a live bb.",
+      "at": "2026-08-12"
+    },
+    {
+      "plugin": "sudohackin/bb-plugin-symphony-task",
+      "reason": "Overwhelmingly a vendored fork of the Tasks plugin bb already ships, and it keeps upstream's identity rather than sitting beside it: it registers a CLI literally named 'tasks' with the same 15 subcommands and a navPanel id 'tasks'/title 'Tasks'/icon 'ListTodo', so installing it collides with a plugin every bb install already has enabled. The import commit landed 113 files and +49,126 lines; file-for-file diffs against get-bb/bb plugins/tasks are near-identical (tasks-editor.tsx 642 lines both sides, 6 differing lines, all import-path rewrites). Upstream is MIT and the LICENSE was dropped; upstream's tests were deleted. The author's own additions (Jira source, Beads source, execution engine, ~5,700 lines) are real — extracted as a plugin that composes with bb's Tasks instead of replacing it, that would be a different and plausibly listable thing.",
+      "at": "2026-08-12"
+    },
+    {
+      "plugin": "dbrekelmans/bb-orchestra",
+      "reason": "Real plugin, genuinely distinct (cross-provider delegation to child threads with per-worker provider/model/effort, seven agent tools, a reconciler, 70 tests checked against deliberate mutations). Declined only on trust-for-a-stranger: the README has a '## Status' section reading 'Prototype' which discloses that orchestra_tell and the panel's '+ New' have never run against a live provider and that the 'bb plugin install git:' line it gives readers has not been tested end to end — that is the first thing a reader from this list would run, on full-trust code. 5 commits all on 2026-08-07, nothing since, no LICENSE. A verified git install plus a few weeks of the repo staying alive flips this; it would go under Threads & workflow.",
+      "at": "2026-08-12"
+    },
+    {
+      "plugin": "joesirven/bb-plugin-evals",
+      "reason": "Both headline invariants are genuinely implemented (no filesystem write path in server.ts at all; a run is recorded as 'refused' when the sealed manifest hash drifts). Declined on maintenance and scope: the README says 'This plugin is a prototype living in a personal fork for now' and plans to propose it upstream into bb within about a week, which would make a list entry stale by design; two commits, both 2026-08-07, no CI. Its 'bb evals check' is also hardcoded to one private knowledge base's layout (00-OPS/AGENTS-LOG.md, 01-ARCHITECTURE/ADRs/, a bespoke commit-message regex), so the deterministic layer does not apply to a stranger's repo.",
+      "at": "2026-08-12"
+    },
+    {
+      "plugin": "kaviisuri/bb-plugin-tasks",
+      "reason": "A vendored copy of a plugin bb already ships. Its own README opens 'A customisable build of BB's Tasks plugin... Upstream source is vendored byte-for-byte', and .upstream-ref names ymichael/bb, tag desktop-v0.35.1, path official-plugins/tasks. package.json is 'private: true', the plugin id 'tasks' is reserved by the bundled one, and the documented install is 'cp -R ~/.bb/plugins/tasks/ ~/.bb/plugins/tasks-kv/' plus 'bb plugin disable tasks' — hand-migrating the builtin's live task database. The work on top (task dependencies/blocking plus subtask views, ~6,500 lines with vitest coverage) is real; re-propose if it ships standalone with its own plugin id and no manual data migration.",
+      "at": "2026-08-12"
+    },
+    {
+      "plugin": "mayankbansal12/bb-plugin-web-push-notify",
+      "reason": "Not Web Push: no service worker, no VAPID, no push subscription. It is a 2.5s poll against an in-memory ring buffer in the server process (lost on restart) driving the foreground Notification API, so nothing arrives unless a bb tab is open. The README says so honestly; the repo NAME does not, and the entry would sit directly under bb-plugin-ios-notifications, which is actual Web Push. Also created 2026-08-11 with 4 commits, no LICENSE, and its own settings UI says 'Phase 1 delivers notifications while BB is open in this browser'. Code quality is good (strict TS, zod-validated RPC, vitest, green CI). Worth re-proposing with commits behind it, ideally under a name that does not say 'web push'.",
+      "at": "2026-08-12"
+    },
+    {
+      "plugin": "patleeman/bb-plugins/packages/bb-plugin-grove",
+      "reason": "Substantial and real (~3,500 lines, SHA-256 compare-and-swap on every agent write, dictation through bb's own voice-transcription endpoint, four CLI subcommands, three app slots, a genuine test suite) and distinct from the Editing & files entries. Declined on maintenance, in the author's own words: the single commit that introduces it (e7473a6, 2026-08-09) is a multi-package checkpoint whose body reads 'Also includes in-flight WIP: bb-plugin-grove...'. That is the package's entire history — no follow-up, no iteration. Its README install command is also hardcoded to /Users/patrick/workingdir/. Re-propose once it has history beyond the checkpoint that called it in-flight.",
+      "at": "2026-08-12"
+    },
+    {
+      "plugin": "pierback/bb-session-fabric",
+      "reason": "Not a plugin for bb. Every server call goes through bb.sdk.sessionFabric, a capability that exists only in the author's own fork (pierback/bb, forked from get-bb/bb 2026-08-11). Generating the SDK declarations against bb 0.37.0 gives zero occurrences of sessionFabric, so requireSessionFabricCapability() throws on load and the plugin does nothing on a real bb; its engines.bb is '>=0.36 <0.37', which the current release does not satisfy either. The README states it requires 'Pierback BB 0.36.x' and 'deliberately has no fallback for upstream BB builds'. Reconsider if sessionFabric lands in upstream bb.",
+      "at": "2026-08-12"
     }
   ],
   "listedAs": []
