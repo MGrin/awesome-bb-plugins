@@ -6,12 +6,22 @@ bb ships 13 official plugins bundled inside the app and [deliberately has no rem
 marketplace](https://github.com/get-bb/bb/pull/737), so third-party plugins are found by
 word of mouth. This list is the missing directory.
 
-**Everything here installs the same way** — there are no bb plugins on npm yet
-([`@bb/plugin-sdk` isn't published](https://github.com/get-bb/bb/issues/1134)):
+**Two install forms.** Everything here installs from git:
 
 ```sh
 bb plugin install git:https://github.com/<owner>/<repo>.git@main
 ```
+
+Some now publish to npm as well — [16 packages carry the `bb-plugin`
+keyword](https://www.npmjs.com/search?q=keywords:bb-plugin) as of 2026-08-12 — and where an
+entry lists one, that is the shorter route:
+
+```sh
+bb plugin install npm:<package>
+```
+
+([`@bb/plugin-sdk` itself is still unpublished](https://github.com/get-bb/bb/issues/1134);
+plugins vendor it. That blocks the SDK, not the plugins.)
 
 Plugins are full-trust code running in the bb server. Read the source before installing.
 
@@ -77,7 +87,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 ## Integrations
 
 - [bb-plugin-linear](https://github.com/thonythony/bb-plugin-linear) — Linear issues, start a thread from one.
-- [linear](https://github.com/galligan/bb-mate) — an independent Linear integration.
+- [linear](https://github.com/galligan/bb-plugin-studio/tree/main/plugins/linear) — search Linear issues from the prompt box and attach agent-ready context.
 - [telemetry](https://github.com/patleeman/bb-plugins) — usage telemetry.
 - [bb-plugin-exec-tracking](https://github.com/pixexid/llm-collab) — records provider/model/reasoning evidence per run.
 - [bb-plugin-argocd](https://github.com/Willhong/bb-plugin-argocd) — read-only Argo CD browser: application sync and health, managed resources, deploy history and pod logs, with agent tools and a `bb argocd` CLI.
@@ -97,7 +107,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 
 ## Authoring tools
 
-- [bb-mate](https://github.com/galligan/bb-mate) — fixture-driven plugin authoring workbench; the only bb tooling published to npm.
+- [bb-mate](https://github.com/galligan/bb-plugin-studio/tree/main/plugins/mate) — fixture-driven plugin authoring workbench, run against a supervised bb-mate runtime.
 - [bb-smithers-workflows](https://github.com/benvenker/bb-smithers-workflows) — plugin verification and release-gate workflows.
 - [create-plugin / validate-plugin-artifacts](https://github.com/brsbl/bb-plugins) — scaffolding and artifact validation scripts.
 

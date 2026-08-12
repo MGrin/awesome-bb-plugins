@@ -6,9 +6,16 @@ name: discover unlisted plugins
 # an entry needs a human sentence and the right section, and an auto-appended
 # list of repo blurbs would be a worse directory than none.
 
+# DAILY, not weekly, and the reason is a scheduling bug rather than a wish for
+# more sweeps. What ACTS on this issue is the Monday upkeep pass of the
+# repo-steward automation, whose first Monday tick is 00:20 Asia/Makassar =
+# Sunday 16:20 UTC — seventeen hours BEFORE a Monday-09:00-UTC sweep. So every
+# candidate the sweep found sat unread for a full week, every week, and the list
+# looked stale while the discovery was working fine. A daily sweep removes the
+# coupling: whenever triage runs, the issue it reads is at most a day old.
 on:
   schedule:
-    - cron: "0 9 * * 1" # Mondays, 09:00 UTC
+    - cron: "0 6 * * *" # daily, 06:00 UTC
   workflow_dispatch: {}
 
 permissions:
