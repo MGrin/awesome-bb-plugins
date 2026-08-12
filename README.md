@@ -83,6 +83,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [bb-plugin-system](https://github.com/MGrin/bb-plugin-system) — CPU, memory, disk and top processes as a panel, homepage tiles and a `bb system` CLI.
 - [bb-plugin-worktree-setup](https://github.com/KaviiSuri/bb-plugin-worktree-setup) — per-repo worktree provisioning and git hooks.
 - [browser](https://github.com/jssblck/bb-plugins) — shared Chrome over CDP.
+- [bb-plugin-browser](https://github.com/MGrin/bb-plugin-browser) — drives a browser you already have (Brave, Chrome, Chromium, Edge, Vivaldi or Opera) over CDP on a profile of its own, headless by default; each thread gets its own tab named by CDP target id, so tabs survive plugin reloads and bb restarts, threads share cookies and logins but can never move each other's page, `browser_show` relaunches on screen when a login wall or CAPTCHA needs you, and the idle reaper only ever closes tabs the plugin opened.
 - [stay-awake](https://github.com/jssblck/bb-plugins) — keep the host awake while work runs.
 - [codex-environments](https://github.com/jssblck/bb-plugins) — Codex environment management.
 - [bb-plugin-accounts](https://github.com/MGrin/bb-plugin-accounts) — Claude Max account usage and auto-switching, with thread auto-continue after a rate limit.
