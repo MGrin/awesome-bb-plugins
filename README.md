@@ -64,6 +64,12 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [Missing keyboard shortcuts](https://github.com/ariofrio/bb-plugins/tree/main/plugins/bb-plugin-missing-keyboard-shortcuts) — adds the shortcuts bb does not bind: ⌘[/⌘] for browser history, ⌘N/⇧⌘N for a new thread with or without the current thread's project, ⌘L to focus the primary composer, and ⇧⌘L / ⌃` to toggle a side chat or thread terminal.
 - [emoji-react](https://github.com/patleeman/bb-plugins) — adds one emoji button per configured reaction to the assistant-message text-selection menu; clicking one drafts a reply quoting the highlighted text.
 - [bb-plugin-writing-check](https://github.com/qiantao94/bb-plugin-writing-check) — checks each English message you send for spelling and grammar in a hidden worker thread and inserts the corrections below the message; explanations are written in Simplified Chinese.
+- [Agent Checklists](https://github.com/patleeman/bb-plugins/tree/main/packages/bb-plugin-agent-checklists) — gives a thread a persisted list of steps the agent reads and ticks off through `agent_checklist_get` / `agent_checklist_update`, with progress in the workbench and a read-only detail view; state lives in the plugin's own SQLite store.
+- [Comprehension](https://github.com/patleeman/bb-plugins/tree/main/packages/bb-plugin-comprehension) — turns a message, a text selection or a whole thread into an HTML explainer, from a message action or the thread header. Needs bb ≥ 0.38.
+- [Plannotator](https://github.com/patleeman/bb-plugins/tree/main/packages/bb-plugin-plannotator) — embeds the upstream [Plannotator](https://github.com/backnotprop/plannotator) plan-review app in the thread panel and hands its approval or feedback back to the agent via a `plannotator_review_plan` tool; you supply the Plannotator binary yourself.
+- [Cascade](https://github.com/SawyerHood/bb-plugin-cascade) — niri-style scrollable tiling: every live thread is a column in a horizontally scrolling strip, rows group those columns by section, project or machine, and `hjkl` moves while `HL` reorders.
+- [T3 Sidebar](https://github.com/SawyerHood/bb-plugin-t3sidebar) — inbox-style replacement for the sidebar thread list, and the reference example for `app.slots.experimental_threadList` published standalone from bb's own examples; bb's list comes back the moment you switch away. · npm `bb-plugin-t3sidebar`
+- [Dispatch](https://github.com/slogsdon/bb-plugin-dispatch) — expands a one-liner into a full prompt and routes it to the right project as a new thread, from the new-thread composer.
 
 ## Editing & files
 
@@ -72,6 +78,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [bb-plugin-md-annotate](https://github.com/DarrenTsung/bb-plugin-md-annotate) — Google-Docs-style inline comments on markdown.
 - [excalidraw](https://github.com/patleeman/bb-plugins) — Excalidraw boards inside bb.
 - [bb-plugin-excalidraw](https://github.com/Diffuzmetall/bb-plugin-excalidraw) — opens a workspace `.excalidraw` file as a canvas, with SHA-256 compare-and-swap agent tools, a `bb excalidraw` read/create/apply CLI, and a diagram-design skill.
+- [Server File Explorer](https://github.com/Willhong/bb-plugin-file-explorer) — read-only Files panel for the machine running the bb server, with folder navigation, an absolute-path bar, browser history and markdown shown rendered or raw.
 
 ## Code intelligence
 
@@ -92,6 +99,11 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [agent-proxy](https://github.com/smsunarto/bb-plugins/tree/main/plugins/agent-proxy) — installs CLIProxyAPI and keeps it running as a launchd/systemd login service, so several Claude and Codex accounts answer on one loopback OpenAI/Anthropic/Gemini endpoint; OAuth sign-in, provider keys, usage and Claude Code/Codex wiring in a panel, plus a `bb agent-proxy` CLI. It installs a third-party binary as a login service that outlives bb. · npm `@smsunarto/bb-plugin-agent-proxy`
 - [usage-tracker](https://github.com/MateoCerquetella/bb-plugins/tree/main/plugins/usage-tracker) — Codex and Claude Code usage percentages in a sidebar footer strip that expands to the 5-hour and weekly windows with reset times. · npm `bb-plugin-usage-tracker`
 - [bb-plugin-usage](https://github.com/MayankBansal12/bb-plugin-usage) — token counts and estimated API cost per agent, model provider and machine, read from Codex, Claude Code, Grok, OpenCode and Pi session logs on every enrolled host.
+- [Usage](https://github.com/iamEvanYT/bb-usage-page) — a second take on the same idea: Claude Code, Codex and Pi token usage and estimated cost in a nav panel and a CLI, read from local session logs on the host running bb.
+- [Usage limits below chat](https://github.com/Willhong/bb-plugin-usage-limit) — one compact row under the composer showing the session and weekly limits of the provider selected in *that* composer — Codex, Claude Code or Cursor — with the signed-in account on the right.
+- [Grok Usage](https://github.com/idrevnii/bb-plugin-grok-usage) — adds a Grok Build weekly-limit row to Settings → Usage limits, reusing the existing `grok login` session in `~/.grok/auth.json` instead of asking for another key.
+- [Lanes](https://github.com/slogsdon/bb-plugin-lanes) — normalises Claude, Codex, OpenCode Zen Go and OpenRouter headroom into one set of gauges on the homepage and a nav panel; the last two are the lanes bb tracks nothing about.
+- [Toolbox](https://github.com/patleeman/bb-plugins/tree/main/packages/bb-plugin-toolbox) — one registry for MCP servers and named CLI operations, re-exposed to any provider as bb agent tools and as a single aggregated MCP endpoint. Enabled entries run real commands, so read what you turn on.
 
 ## Memory & knowledge
 
@@ -106,7 +118,11 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 ## Integrations
 
 - [bb-plugin-linear](https://github.com/thonythony/bb-plugin-linear) — Linear issues, start a thread from one.
-- [linear](https://github.com/galligan/bb-plugin-studio/tree/main/plugins/linear) — search Linear issues from the prompt box and attach agent-ready context.
+- [linear](https://github.com/galligan/bb-plugins/tree/main/plugins/linear) — search Linear issues from the prompt box and attach agent-ready context.
+- [bb-plugin-linear](https://github.com/vburojevic/bb-plugin-linear) — the deepest of the three Linear entries: issues, inbox, triage, projects and cycles in a nav panel, each thread bound to the issue it works on in the header and in the agent's own context, and a dozen `linear_*` tools covering search, comment and issue create/update.
+- [Shortcut](https://github.com/andreasmcdermott/bb-plugin-shortcut) — the Shortcut stories assigned to you as a compact kanban grouped by workflow state, with `shortcut_list_assigned` / `shortcut_get_story` agent tools and a hand-off into a thread; the API token is a secret setting.
+- [Beads](https://github.com/olegtaratuhin/bbb) — browse and update [Beads](https://beads.gascity.com/) issues in a project panel, shelling out to the `bd` CLI as the source of truth rather than keeping its own copy; Beads must already be installed.
+- [bb-plugin-jenkins](https://github.com/suhye0n/bb-plugin-jenkins) — a second Jenkins plugin, aimed at deploys rather than browsing: star the jobs you ship, group them into your own folders, and fire parameterised builds or saved presets in one click, with live status on the homepage.
 - [telemetry](https://github.com/patleeman/bb-plugins) — usage telemetry.
 - [bb-plugin-exec-tracking](https://github.com/pixexid/llm-collab) — records provider/model/reasoning evidence per run.
 - [bb-plugin-argocd](https://github.com/Willhong/bb-plugin-argocd) — read-only Argo CD browser: application sync and health, managed resources, deploy history and pod logs, with agent tools and a `bb argocd` CLI.
@@ -124,6 +140,11 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [monokai](https://github.com/smsunarto/bb-plugins/tree/main/plugins/monokai) — dark Monokai palette that also repaints the terminal's 16 ANSI colors, the diff viewer's rows and gutters, the file tree's git-status column, inline code tokens and the composer stop button; dark appearance only. · npm `@smsunarto/bb-plugin-monokai`
 - [Project header breadcrumb](https://github.com/ariofrio/bb-plugins/tree/main/plugins/bb-plugin-project-header-breadcrumb) — puts the project name before the thread title, with a menu for project settings, rename and remove.
 - [Project icons](https://github.com/ariofrio/bb-plugins/tree/main/plugins/bb-plugin-project-icons) — gives each project an icon and optional color, picked from a 2,532-icon Hugeicons catalog and drawn before the project name in the thread header.
+- [Cobalt2](https://github.com/patleeman/bb-plugins/tree/main/packages/bb-plugin-cobalt2) — the Cobalt2 palette as a bb theme; CSS only, no server behaviour.
+- [HUD](https://github.com/suhye0n/bb-plugin-hud) — a Claude-Code-style status line on the composer: which model is answering, its reasoning level, how much of the context window the thread has eaten, and the token counts.
+- [Agent Orbs](https://github.com/fahmiirsyadk/bb-plugins/tree/main/plugins/agent-orbs) — gives each active child thread a stable identity: a generated Oreo avatar and a friendly codename.
+- [Composer Beam](https://github.com/fahmiirsyadk/bb-plugins/tree/main/plugins/composer-beam) — draws an animated beam around a composer while its thread is running or submitting. Frontend only.
+- [Fluid Thinking](https://github.com/fahmiirsyadk/bb-plugins/tree/main/plugins/fluid-thinking) — replaces only the `Thinking…` / `Working…` indicator with the morphing Fluid Functionalism one.
 
 ## Fun
 
@@ -132,7 +153,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 
 ## Authoring tools
 
-- [bb-mate](https://github.com/galligan/bb-plugin-studio/tree/main/plugins/mate) — fixture-driven plugin authoring workbench, run against a supervised bb-mate runtime.
+- [Plugin Studio](https://github.com/galligan/bb-plugin-studio/tree/main/plugins/studio) — inspect the plugins your bb has actually loaded from a nav panel: a read-only snapshot of their source and status, taken in-process rather than by starting a second runtime.
 - [bb-smithers-workflows](https://github.com/benvenker/bb-smithers-workflows) — plugin verification and release-gate workflows.
 - [create-plugin / validate-plugin-artifacts](https://github.com/brsbl/bb-plugins) — scaffolding and artifact validation scripts.
 
@@ -147,8 +168,16 @@ Conventions this ecosystem has settled on:
 - Name the repo and package `bb-plugin-<thing>`.
 - Tag the repo with the `bb-plugin` topic — that is currently the only way anyone finds you.
 - Pin `engines.bbPluginSdk` (`^0.4.1` at time of writing); managed installs refuse a mismatch.
-- Don't set `private: true` in `package.json` — it blocks installation.
+- Put every runtime import in `dependencies`, not `devDependencies` — `zod` above all. Managed
+  installs run `npm install --omit=dev`, so a `devDependencies` entry that `server.ts` imports
+  fails the build and the plugin cannot be installed at all. This is the single most common
+  breakage on this list.
+- `private: true` is fine and does **not** block a `git:` install — it only stops `npm publish`.
+  (This entry used to claim the opposite. Verified against the installer's own steps on
+  2026-08-15.) It does mean there is no npm package, which matters if you are in a monorepo.
 - Ship a prebuilt `dist/` if you publish to npm: npm installs run `--ignore-scripts` and never build.
+  Point `bb.server` at your **source** (`./server.ts`), not at `./dist/server.js` — a manifest that
+  targets a committed artifact means the code that runs is not the code a reader reviews.
 
 ## Contributing
 
