@@ -137,6 +137,37 @@ async function searchRepos() {
   return found;
 }
 
+// A package.json `name` is what the author INTENDS to publish, not what is
+// published. Reporting it as an npm package without asking the registry was
+// wrong 21 times out of 22 on 2026-08-15, and wrong about bb-plugin-slopcop on
+// 2026-08-12. It matters because a plugin in a monorepo subdirectory cannot be
+// installed with the `git:` form at all (get-bb/bb#1097), so for those the npm
+// name is the ONLY install route an entry can offer — and a fabricated one
+// sends the reader to a command that cannot work.
+//
+// Unknown is not the same as absent: a registry that times out must not silently
+// turn every package into a 404, so a failed lookup returns null and the caller
+// omits the claim rather than asserting either way.
+const npmCache = new Map();
+async function publishedOnNpm(name) {
+  if (!name) return false;
+  if (npmCache.has(name)) return npmCache.get(name);
+  let verdict = null;
+  try {
+    const res = await fetch(`https://registry.npmjs.org/${name.replace("/", "%2F")}`, {
+      method: "HEAD",
+      headers: { "user-agent": "awesome-bb-plugins-discover" },
+    });
+    if (res.status === 200) verdict = true;
+    else if (res.status === 404) verdict = false;
+    // Anything else (429, 5xx) stays null — unknown, not absent.
+  } catch {
+    // Network failure is unknown too.
+  }
+  npmCache.set(name, verdict);
+  return verdict;
+}
+
 const isPluginManifest = (pkg) => {
   if (pkg?.bb) return { ok: true, why: "package.json has a bb key", desc: pkg.bb?.description ?? pkg.description ?? null };
   const deps = { ...(pkg?.dependencies ?? {}), ...(pkg?.devDependencies ?? {}), ...(pkg?.peerDependencies ?? {}) };
@@ -291,6 +322,7 @@ for (const [fullName, { repo: found0, how }] of found) {
     candidates.push({
       key,
       fullName,
+      path: u.path,
       name: u.name,
       url: u.path ? `https://github.com/${fullName}/tree/HEAD/${u.path}` : `https://github.com/${fullName}`,
       stars: repo.stargazers_count ?? 0,
@@ -298,9 +330,29 @@ for (const [fullName, { repo: found0, how }] of found) {
       desc: u.desc || (repo.description ?? "").replace(/\s+/g, " ").trim(),
       why: u.why,
       how: [...how].join("+"),
-      npm: u.pkgName,
+      // Verified against the registry below, once the candidate list is final —
+      // never taken from the manifest.
+      npm: null,
+      pkgName: u.pkgName,
     });
   }
+}
+
+// Resolve the npm claims now that the candidate list is final — a handful of
+// HEAD requests, not one per plugin in the ecosystem.
+let npmChecked = 0;
+let npmUnknown = 0;
+for (const c of candidates) {
+  const verdict = await publishedOnNpm(c.pkgName);
+  if (verdict === null) npmUnknown++;
+  else if (verdict) npmChecked++;
+  c.npm = verdict === true ? c.pkgName : null;
+}
+if (candidates.length) {
+  console.error(
+    `discover: npm — ${npmChecked} of ${candidates.length} candidate package names are really published` +
+      (npmUnknown ? `, ${npmUnknown} unknown (registry did not answer; claim omitted)` : ""),
+  );
 }
 
 // Always on stderr, even on a quiet week: "found nothing" and "looked at
@@ -336,8 +388,12 @@ const lines = [
   ...candidates.map(
     (c) =>
       `- [ ] [${c.name}](${c.url}) — ${c.desc || "_no description_"}  \n      ` +
-      `<sub>${c.why} · ${c.fullName}${c.npm ? ` · npm \`${c.npm}\`` : ""} · found by ${c.how} · ` +
-      `${c.stars}★ · last push ${c.pushed}</sub>`,
+      `<sub>${c.why} · ${c.fullName}${c.npm ? ` · npm \`${c.npm}\`` : ""}` +
+      // A subdirectory plugin cannot use the `git:` form (get-bb/bb#1097). With
+      // no npm package either, there is no documented install route at all —
+      // say so here rather than leaving whoever triages it to find out.
+      `${c.path && !c.npm ? " · **no install route: monorepo subdir, not on npm**" : ""}` +
+      ` · found by ${c.how} · ${c.stars}★ · last push ${c.pushed}</sub>`,
   ),
 ];
 console.log(lines.join("\n"));
