@@ -81,6 +81,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 ## Host & environment
 
 - [bb-plugin-system](https://github.com/MGrin/bb-plugin-system) — CPU, memory, disk and top processes as a panel, homepage tiles and a `bb system` CLI.
+- [Wterm Terminal Preview](https://github.com/Diffuzmetall/bb-wterm-terminal-plugin) — early-preview Ghostty-backed alternative to bb's thread terminal with persistent reattachment, TUI mouse input, font controls and file upload for SSH and Herdr workflows.
 - [bb-plugin-worktree-setup](https://github.com/KaviiSuri/bb-plugin-worktree-setup) — per-repo worktree provisioning and git hooks.
 - [browser](https://github.com/jssblck/bb-plugins) — shared Chrome over CDP.
 - [bb-plugin-browser](https://github.com/MGrin/bb-plugin-browser) — drives a browser you already have (Brave, Chrome, Chromium, Edge, Vivaldi or Opera) over CDP on a profile of its own, headless by default; each thread gets its own tab named by CDP target id, so tabs survive plugin reloads and bb restarts, threads share cookies and logins but can never move each other's page, `browser_show` relaunches on screen when a login wall or CAPTCHA needs you, and the idle reaper only ever closes tabs the plugin opened.
