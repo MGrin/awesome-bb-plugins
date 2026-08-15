@@ -22,7 +22,7 @@
     },
     {
       "plugin": "amrtawfik160/hanoon",
-      "reason": "Real plugin, well built (SQLite control plane, FTS5 memory, reviewed pipeline with one-use approvals, 21 agent tools, 71 test files), and nothing else on the list drives bb from Telegram. Declined on trust: package.json sets 'private: true' (blocks installation, and its own quick start only documents a local 'bb plugin install .'), there is NO LICENSE file at all, and the repo was two days old with 6 commits when read. It hands whoever holds a Telegram chat full-permission shell and bb CLI across every connected machine — its own README says to use a disposable repo for the first live run. Re-propose once it has a license, 'private' removed, and a real commit history.",
+      "reason": "Real plugin, well built (SQLite control plane, FTS5 memory, reviewed pipeline with one-use approvals, 21 agent tools, 71 test files), and nothing else on the list drives bb from Telegram. Declined on trust: there is NO LICENSE file at all, and the repo was two days old with 6 commits when read. It hands whoever holds a Telegram chat full-permission shell and bb CLI across every connected machine — its own README says to use a disposable repo for the first live run. Re-propose once it has a license, 'private' removed, and a real commit history. [Corrected 2026-08-15: this decline originally also cited private: true as blocking installation. That is false — private only gates npm publish, verified against the installer's own steps. The licence and history grounds stand on their own.]",
       "at": "2026-08-12"
     },
     {
@@ -74,6 +74,21 @@
       "plugin": "pierback/bb-session-fabric",
       "reason": "Not a plugin for bb. Every server call goes through bb.sdk.sessionFabric, a capability that exists only in the author's own fork (pierback/bb, forked from get-bb/bb 2026-08-11). Generating the SDK declarations against bb 0.37.0 gives zero occurrences of sessionFabric, so requireSessionFabricCapability() throws on load and the plugin does nothing on a real bb; its engines.bb is '>=0.36 <0.37', which the current release does not satisfy either. The README states it requires 'Pierback BB 0.36.x' and 'deliberately has no fallback for upstream BB builds'. Reconsider if sessionFabric lands in upstream bb.",
       "at": "2026-08-12"
+    },
+    {
+      "plugin": "pixexid/bb-collab",
+      "reason": "Installs and builds, but the manifest sets bb.server to \"./dist/server.js\" — a committed 914 KB build artifact — so the code bb loads is the checked-in blob, not the 11k lines of source beside it. Deleting dist/ and rebuilding fails outright (\"manifest bb.server points at a missing file\"), which is what showed the artifact is load-bearing rather than incidental. For full-trust code on a directory whose own header says \"read the source before installing\", that is the wrong shape. There is also no LICENSE file, and the README documents a governance contract (\"contract v9/schema v10\", one-request operator receipts) rather than what a user gets. Point bb.server at source, add a license, and re-propose.",
+      "at": "2026-08-15"
+    },
+    {
+      "plugin": "sudohackin/bb-plugin-change-review",
+      "reason": "Not installable. server.ts:3 imports zod, but zod sits in devDependencies, and `bb plugin install git:` runs `npm install --omit=dev` — so the build dies on `Could not resolve \"zod\"`. Reproduced in a fresh clone on 2026-08-15. One line in package.json fixes it. Also has no LICENSE, and typescript / react-dom / @types/react-dom are in dependencies where they do not belong. The plugin itself — a Files panel with per-file tabs and TS/JS go-to-definition — looks like real work; re-propose once it installs.",
+      "at": "2026-08-15"
+    },
+    {
+      "plugin": "vburojevic/bb-plugin-pets",
+      "reason": "Not installable, same one-line cause as sudohackin/bb-plugin-change-review: server.ts:23 imports zod while zod is in devDependencies, so the managed install (npm install --omit=dev) cannot resolve it and `bb plugin build` fails. Reproduced in a fresh clone on 2026-08-15; the committed dist/ hides this locally but does not survive the installer. Nothing else against it — 15k lines, tests, honest secret settings. Worth knowing before installing: sprite generation calls api.openai.com, and optionally api.retrodiffusion.ai, with your own key. Move zod to dependencies and this is a straightforward yes under Fun.",
+      "at": "2026-08-15"
     }
   ],
   "listedAs": []
