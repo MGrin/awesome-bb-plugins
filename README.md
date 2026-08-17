@@ -117,9 +117,8 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 
 ## Integrations
 
-- [bb-plugin-linear](https://github.com/thonythony/bb-plugin-linear) — Linear issues, start a thread from one.
 - [linear](https://github.com/galligan/bb-plugins/tree/main/plugins/linear) — search Linear issues from the prompt box and attach agent-ready context.
-- [bb-plugin-linear](https://github.com/vburojevic/bb-plugin-linear) — the deepest of the three Linear entries: issues, inbox, triage, projects and cycles in a nav panel, each thread bound to the issue it works on in the header and in the agent's own context, and a dozen `linear_*` tools covering search, comment and issue create/update.
+- [bb-plugin-linear](https://github.com/vburojevic/bb-plugin-linear) — the deeper of the two Linear entries: issues, inbox, triage, projects and cycles in a nav panel, each thread bound to the issue it works on in the header and in the agent's own context, and a dozen `linear_*` tools covering search, comment and issue create/update.
 - [Shortcut](https://github.com/andreasmcdermott/bb-plugin-shortcut) — the Shortcut stories assigned to you as a compact kanban grouped by workflow state, with `shortcut_list_assigned` / `shortcut_get_story` agent tools and a hand-off into a thread; the API token is a secret setting.
 - [Beads](https://github.com/olegtaratuhin/bbb) — browse and update [Beads](https://beads.gascity.com/) issues in a project panel, shelling out to the `bd` CLI as the source of truth rather than keeping its own copy; Beads must already be installed.
 - [bb-plugin-jenkins](https://github.com/suhye0n/bb-plugin-jenkins) — a second Jenkins plugin, aimed at deploys rather than browsing: star the jobs you ship, group them into your own folders, and fire parameterised builds or saved presets in one click, with live status on the homepage.
