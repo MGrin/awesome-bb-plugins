@@ -92,7 +92,7 @@
     },
     {
       "plugin": "slogsdon/bb-plugin-global-workflows",
-      "reason": "Not installable — the third plugin caught by the same one-line bug in three days. server.ts:30 imports zod while zod sits in devDependencies, and `bb plugin install git:` runs `npm install --omit=dev`, so the build dies on `Could not resolve \"zod\"`. Reproduced in a fresh clone of v0.1.2 (55032b4) on 2026-08-17. Nothing else against it: MIT, 2.3k lines, seven real commits, and the author already has Dispatch and Lanes on the list, both of which install fine. Move zod to dependencies and it goes straight into Threads & workflow. Reported upstream.",
+      "reason": "Not installable — the third plugin caught by the same one-line bug in three days. server.ts:30 imports zod while zod sits in devDependencies, and `bb plugin install git:` runs `npm install --omit=dev`, so the build dies on `Could not resolve \"zod\"`. Reproduced in a fresh clone of v0.1.2 (55032b4) on 2026-08-17. Nothing else against it: MIT, 2.3k lines, seven real commits, and the author already has Dispatch and Lanes on the list, both of which install fine. Move zod to dependencies and it goes straight into Threads & workflow. Reported upstream as slogsdon/bb-plugin-global-workflows#1 on 2026-08-17.",
       "at": "2026-08-17"
     }
   ],
