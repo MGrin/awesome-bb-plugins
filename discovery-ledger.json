@@ -89,6 +89,11 @@
       "plugin": "vburojevic/bb-plugin-pets",
       "reason": "Not installable, same one-line cause as sudohackin/bb-plugin-change-review: server.ts:23 imports zod while zod is in devDependencies, so the managed install (npm install --omit=dev) cannot resolve it and `bb plugin build` fails. Reproduced in a fresh clone on 2026-08-15; the committed dist/ hides this locally but does not survive the installer. Nothing else against it — 15k lines, tests, honest secret settings. Worth knowing before installing: sprite generation calls api.openai.com, and optionally api.retrodiffusion.ai, with your own key. Move zod to dependencies and this is a straightforward yes under Fun.",
       "at": "2026-08-15"
+    },
+    {
+      "plugin": "slogsdon/bb-plugin-global-workflows",
+      "reason": "Not installable — the third plugin caught by the same one-line bug in three days. server.ts:30 imports zod while zod sits in devDependencies, and `bb plugin install git:` runs `npm install --omit=dev`, so the build dies on `Could not resolve \"zod\"`. Reproduced in a fresh clone of v0.1.2 (55032b4) on 2026-08-17. Nothing else against it: MIT, 2.3k lines, seven real commits, and the author already has Dispatch and Lanes on the list, both of which install fine. Move zod to dependencies and it goes straight into Threads & workflow. Reported upstream.",
+      "at": "2026-08-17"
     }
   ],
   "listedAs": []

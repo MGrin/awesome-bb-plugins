@@ -70,11 +70,13 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [Cascade](https://github.com/SawyerHood/bb-plugin-cascade) — niri-style scrollable tiling: every live thread is a column in a horizontally scrolling strip, rows group those columns by section, project or machine, and `hjkl` moves while `HL` reorders.
 - [T3 Sidebar](https://github.com/SawyerHood/bb-plugin-t3sidebar) — inbox-style replacement for the sidebar thread list, and the reference example for `app.slots.experimental_threadList` published standalone from bb's own examples; bb's list comes back the moment you switch away. · npm `bb-plugin-t3sidebar`
 - [Dispatch](https://github.com/slogsdon/bb-plugin-dispatch) — expands a one-liner into a full prompt and routes it to the right project as a new thread, from the new-thread composer.
+- [Arc Switcher](https://github.com/bighitbiker3/bb-plugin-arc-switcher) — ⌘D cycles the seven most recently opened threads, Arc-style; each one keeps a stable emoji marker so it stays recognisable as the most-recent order shuffles under it. Ships no LICENSE, so strictly nobody has been granted the right to use it yet.
 
 ## Editing & files
 
 - [bb-plugin-files](https://github.com/Diffuzmetall/bb-plugin-files) — file browser and editor for a thread's environment.
 - [bb-plugin-filetree](https://github.com/rekon307/bb-plugin-filetree) — lazy-loading file tree in the side panel.
+- [Git Graph](https://github.com/GabZoFar/bb-plugin-git-graph) — read-only commit graph in a thread side panel, running git inside that thread's own environment — including one hosted on another connected machine, rather than on whichever repo the bb window happens to be pointing at.
 - [bb-plugin-md-annotate](https://github.com/DarrenTsung/bb-plugin-md-annotate) — Google-Docs-style inline comments on markdown.
 - [excalidraw](https://github.com/patleeman/bb-plugins) — Excalidraw boards inside bb.
 - [bb-plugin-excalidraw](https://github.com/Diffuzmetall/bb-plugin-excalidraw) — opens a workspace `.excalidraw` file as a canvas, with SHA-256 compare-and-swap agent tools, a `bb excalidraw` read/create/apply CLI, and a diagram-design skill.
@@ -174,6 +176,8 @@ Conventions this ecosystem has settled on:
 - `private: true` is fine and does **not** block a `git:` install — it only stops `npm publish`.
   (This entry used to claim the opposite. Verified against the installer's own steps on
   2026-08-15.) It does mean there is no npm package, which matters if you are in a monorepo.
+- Ship a LICENSE. Without one, the default is all rights reserved, and a directory that tells
+  people to install your plugin is asking them to do something you have not permitted.
 - Ship a prebuilt `dist/` if you publish to npm: npm installs run `--ignore-scripts` and never build.
   Point `bb.server` at your **source** (`./server.ts`), not at `./dist/server.js` — a manifest that
   targets a committed artifact means the code that runs is not the code a reader reviews.
