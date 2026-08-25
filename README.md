@@ -2,31 +2,51 @@
 
 > Community plugins for [bb](https://getbb.app) — the agent IDE that builds itself.
 
-bb ships 13 official plugins bundled inside the app and [deliberately has no remote
-marketplace](https://github.com/get-bb/bb/pull/737), so third-party plugins are found by
-word of mouth. This list is the missing directory.
+bb ships 18 official plugins bundled inside the app and [retired its own remote
+marketplace](https://github.com/get-bb/bb/pull/737) rather than running a central one, so
+third-party plugins are found by word of mouth. This list is the missing directory.
 
-**Two install forms.** Everything here installs from git:
+**Install forms.** Everything here installs from git:
 
 ```sh
 bb plugin install git:https://github.com/<owner>/<repo>.git@main
 ```
 
-Some now publish to npm as well — [16 packages carry the `bb-plugin`
-keyword](https://www.npmjs.com/search?q=keywords:bb-plugin) as of 2026-08-12 — and where an
+Some publish to npm as well — [27 packages carry the `bb-plugin`
+keyword](https://www.npmjs.com/search?q=keywords:bb-plugin) as of 2026-08-25 — and where an
 entry lists one, that is the shorter route:
 
 ```sh
 bb plugin install npm:<package>
 ```
 
-A plugin living in a subdirectory of a monorepo cannot be installed with the `git:` form at
-all — bb reads the manifest at the repo root
-([get-bb/bb#1097](https://github.com/get-bb/bb/issues/1097)). Use the npm package where the
-entry names one, otherwise clone the repo and `bb plugin install <path>`.
+A plugin living in a subdirectory of a monorepo used to be installable by neither, because
+bb read the manifest at the repo root. That was fixed in
+[get-bb/bb#1097](https://github.com/get-bb/bb/issues/1097), closed 2026-08-14 — name the
+directory and the `git:` form works:
 
-([`@bb/plugin-sdk` itself is still unpublished](https://github.com/get-bb/bb/issues/1134);
-plugins vendor it. That blocks the SDK, not the plugins.)
+```sh
+bb plugin install git:https://github.com/<owner>/<repo>.git@main --subdirectory <path>
+```
+
+A repo carrying a `marketplace.json` catalog can also be added as a self-hosted marketplace,
+after which its plugins install by name. bb runs no central marketplace, but it reads
+third-party ones:
+
+```sh
+bb marketplace add git:github.com/<owner>/<repo>
+bb plugin install <entry>@<marketplace>
+```
+
+Adding a marketplace installs nothing and runs no plugin code; a catalog entry is not
+reviewed by bb, and the install confirmation names the marketplace, the author and the exact
+resolved source.
+
+(The plugin SDK was renamed and published as
+[`@get-bb/plugin-sdk`](https://www.npmjs.com/package/@get-bb/plugin-sdk) —
+[get-bb/bb#1134](https://github.com/get-bb/bb/issues/1134), closed 2026-08-14 — so a plugin
+can depend on it instead of vendoring the types. `@bb/plugin-sdk` under the old name is
+still absent from npm; entries written before the rename vendor it and are unaffected.)
 
 Plugins are full-trust code running in the bb server. Read the source before installing.
 
@@ -60,8 +80,8 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [bb-plugin-session-goal](https://github.com/agustif/bb-plugin-session-goal) — keeps a session's goal and success criteria on a composer card so they stay in view.
 - [agentation](https://github.com/smsunarto/bb-plugins/tree/main/plugins/agentation) — click any element of the bb UI, including another plugin's surface, and file it as an annotation carrying the route, owning plugin id and DOM selector; staged batches are assigned to a thread from its composer, and agent tools acknowledge, reply to and resolve them. · npm `@smsunarto/bb-plugin-agentation`
 - [t3sidebar](https://github.com/smsunarto/bb-plugins/tree/main/plugins/t3sidebar) — replaces the sidebar thread list with a flat inbox that never re-orders; snooze a thread to a wake time or settle it, which also archives it in bb, and live work blocks parking. Forked from bb's own `examples/plugins/t3sidebar` and built on experimental SDK slots. · npm `@smsunarto/bb-plugin-t3sidebar`
-- [Thread tasks](https://github.com/ariofrio/bb-plugins/tree/main/plugins/bb-plugin-thread-tasks) — replaces the sidebar thread list with manually ordered Done/To do/Working/Waiting/Deferred/Canceled sections, moves a thread to Working when its turn starts and back to To do when it stops or blocks on the user, and adds `.` status chords plus a `bb task list|show|update` CLI.
-- [Missing keyboard shortcuts](https://github.com/ariofrio/bb-plugins/tree/main/plugins/bb-plugin-missing-keyboard-shortcuts) — adds the shortcuts bb does not bind: ⌘[/⌘] for browser history, ⌘N/⇧⌘N for a new thread with or without the current thread's project, ⌘L to focus the primary composer, and ⇧⌘L / ⌃` to toggle a side chat or thread terminal.
+- [Thread stages](https://github.com/ariofrio/ribbon/tree/main/plugins/bb-plugin-thread-stages) — replaces the sidebar thread list with manually ordered Deferred/Idle/Active/Blocked/Completed stages; a thread moves to Active when a turn or background command starts anywhere in its hierarchy and back to Idle when none are running, while the other three are only ever set by hand. `.` chords file the open thread and walk you to the next one, ⇧⌘. undoes the last filing, and Completed auto-archives after 7 days by default. `bb thread-stages list|show|update` from the CLI. (Renamed from Thread tasks.)
+- [Missing keyboard shortcuts](https://github.com/ariofrio/ribbon/tree/main/plugins/bb-plugin-missing-keyboard-shortcuts) — adds the shortcuts bb does not bind: ⌘[/⌘] for browser history, ⌘N/⇧⌘N for a new thread with or without the current thread's project, ⌘L to focus the primary composer, and ⇧⌘L / ⌃` to toggle a side chat or thread terminal.
 - [emoji-react](https://github.com/patleeman/bb-plugins) — adds one emoji button per configured reaction to the assistant-message text-selection menu; clicking one drafts a reply quoting the highlighted text.
 - [bb-plugin-writing-check](https://github.com/qiantao94/bb-plugin-writing-check) — checks each English message you send for spelling and grammar in a hidden worker thread and inserts the corrections below the message; explanations are written in Simplified Chinese.
 - [Agent Checklists](https://github.com/patleeman/bb-plugins/tree/main/packages/bb-plugin-agent-checklists) — gives a thread a persisted list of steps the agent reads and ticks off through `agent_checklist_get` / `agent_checklist_update`, with progress in the workbench and a read-only detail view; state lives in the plugin's own SQLite store.
@@ -139,10 +159,9 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [ds4](https://github.com/patleeman/bb-plugins) — design-system theming.
 - [bb-plugin-fontsize](https://github.com/jmporchet/bb-plugin-fontsize) — scales the whole interface from a sidebar footer button that cycles 13/16/20/26px, plus a settings panel with ±1px control; the size is stored per device.
 - [monokai](https://github.com/smsunarto/bb-plugins/tree/main/plugins/monokai) — dark Monokai palette that also repaints the terminal's 16 ANSI colors, the diff viewer's rows and gutters, the file tree's git-status column, inline code tokens and the composer stop button; dark appearance only. · npm `@smsunarto/bb-plugin-monokai`
-- [Project header breadcrumb](https://github.com/ariofrio/bb-plugins/tree/main/plugins/bb-plugin-project-header-breadcrumb) — puts the project name before the thread title, with a menu for project settings, rename and remove.
-- [Project icons](https://github.com/ariofrio/bb-plugins/tree/main/plugins/bb-plugin-project-icons) — gives each project an icon and optional color, picked from a 2,532-icon Hugeicons catalog and drawn before the project name in the thread header.
+- [Breadcrumbs](https://github.com/ariofrio/ribbon/tree/main/plugins/bb-plugin-breadcrumbs) — puts a thread's section, project and ancestor threads before its title in the header, each part toggled on its own; the project name opens settings, rename and remove, and the section name opens what bb's own sidebar section header opens. Ancestors are off by default, and a fork is not an ancestor — bb gives it a `sourceThreadId` rather than a parent. (Renamed from Project header breadcrumb.)
+- [Icons](https://github.com/ariofrio/ribbon/tree/main/plugins/bb-plugin-icons) — gives every project and thread section an icon and optional color, picked from a 2,530-icon Hugeicons catalog — the same set bb draws its own chrome from — and drawn wherever bb names a project or section, including Thread stages' sidebar rows. (Renamed from Project icons, and now covers sections too.)
 - [Cobalt2](https://github.com/patleeman/bb-plugins/tree/main/packages/bb-plugin-cobalt2) — the Cobalt2 palette as a bb theme; CSS only, no server behaviour.
-- [HUD](https://github.com/suhye0n/bb-plugin-hud) — a Claude-Code-style status line on the composer: which model is answering, its reasoning level, how much of the context window the thread has eaten, and the token counts.
 - [Agent Orbs](https://github.com/fahmiirsyadk/bb-plugins/tree/main/plugins/agent-orbs) — gives each active child thread a stable identity: a generated Oreo avatar and a friendly codename.
 - [Composer Beam](https://github.com/fahmiirsyadk/bb-plugins/tree/main/plugins/composer-beam) — draws an animated beam around a composer while its thread is running or submitting. Frontend only.
 - [Fluid Thinking](https://github.com/fahmiirsyadk/bb-plugins/tree/main/plugins/fluid-thinking) — replaces only the `Thinking…` / `Working…` indicator with the morphing Fluid Functionalism one.
@@ -175,7 +194,9 @@ Conventions this ecosystem has settled on:
   breakage on this list.
 - `private: true` is fine and does **not** block a `git:` install — it only stops `npm publish`.
   (This entry used to claim the opposite. Verified against the installer's own steps on
-  2026-08-15.) It does mean there is no npm package, which matters if you are in a monorepo.
+  2026-08-15.) It does mean there is no npm package, which since
+  [get-bb/bb#1097](https://github.com/get-bb/bb/issues/1097) closed no longer strands a plugin
+  in a monorepo subdirectory: `--subdirectory` installs it from git.
 - Ship a LICENSE. Without one, the default is all rights reserved, and a directory that tells
   people to install your plugin is asking them to do something you have not permitted.
 - Ship a prebuilt `dist/` if you publish to npm: npm installs run `--ignore-scripts` and never build.
