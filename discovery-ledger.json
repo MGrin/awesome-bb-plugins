@@ -94,7 +94,111 @@
       "plugin": "slogsdon/bb-plugin-global-workflows",
       "reason": "Not installable — the third plugin caught by the same one-line bug in three days. server.ts:30 imports zod while zod sits in devDependencies, and `bb plugin install git:` runs `npm install --omit=dev`, so the build dies on `Could not resolve \"zod\"`. Reproduced in a fresh clone of v0.1.2 (55032b4) on 2026-08-17. Nothing else against it: MIT, 2.3k lines, seven real commits, and the author already has Dispatch and Lanes on the list, both of which install fine. Move zod to dependencies and it goes straight into Threads & workflow. Reported upstream as slogsdon/bb-plugin-global-workflows#1 on 2026-08-17.",
       "at": "2026-08-17"
+    },
+    {
+      "plugin": "grikomsn/bb-plugins/packages/bb-plugin-pi-events-bridge",
+      "reason": "Real and substantial (634-line Unix-socket bridge, Zod-validated NDJSON, one chokepoint for every pi consumer plugin), but the lane it heads requires `scripts/patch-pi-bridge.mjs`, which rewrites bb's OWN installed `bb-pi-bridge.mjs` to inject env wiring and must be re-run after every bb update. The author documents that plainly and the patch is idempotent with a `--revert`, but a directory should not point strangers at patching the host app. The same reason covers its three pi consumers, listed separately. Re-propose if the bridge works without patching bb.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "grikomsn/bb-plugins/packages/bb-plugin-mcp-mediator",
+      "reason": "Depends on bb-plugin-pi-events-bridge, whose install patches bb's own bundled `bb-pi-bridge.mjs`. Declined for the same reason as the bridge, not on its own quality.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "grikomsn/bb-plugins/packages/bb-plugin-pi-codex-goal",
+      "reason": "Depends on bb-plugin-pi-events-bridge, whose install patches bb's own bundled `bb-pi-bridge.mjs`. Declined for the same reason as the bridge, not on its own quality.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "grikomsn/bb-plugins/packages/bb-plugin-pi-subagents-fleet",
+      "reason": "Depends on bb-plugin-pi-events-bridge, whose install patches bb's own bundled `bb-pi-bridge.mjs`. Declined for the same reason as the bridge, not on its own quality.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "charpeni/bb-plugins/plugins/system-monitor",
+      "reason": "Real plugin (396 lines, node:os and statfs sampling, SQLite `samples` table with 1d/7d/30d buckets), declined for overlap: CPU, memory, disk and load on the bb host is already MGrin/bb-plugin-system's entry, and 30 days of history in SQLite is not enough daylight for a second entry in the same section. Its sibling Skills.sh is listed.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "faultables/bb-plugins/plugins/app-store-connect",
+      "reason": "Real implementation (697-line server shelling out to the third-party `asc` CLI, nav panel and thread action, TestFlight notes and group writes), but its own README and `skills/example-skill/SKILL.md` are still untouched `bb plugin new` scaffold text, so it reads as unfinished. Re-propose when the docs are written. Its sibling ios-simulators is listed.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "faultables/bb-plugins/plugins/opencode-go",
+      "reason": "Works — fetches the OpenCode Zen Go usage endpoint with a Bearer key resolved from settings, env or `~/.local/share/opencode/auth.json`, and adds a `bb opencode-go usage` CLI — but not distinct: Lanes already normalises OpenCode Zen Go headroom into its gauges, and the list already carries six usage plugins. Its sibling ios-simulators is listed.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "hmps/bb-plugins/plugins/pr-digest",
+      "reason": "At 0.x and absent from the repo's own `marketplace.json`, so the author has not published it. The repo IS listed, on its three mobile-web fixes. Re-propose when it ships a release.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "hmps/bb-plugins/plugins/command-palette",
+      "reason": "At 0.x and absent from the repo's own `marketplace.json`, so the author has not published it. The repo IS listed, on its three mobile-web fixes. Re-propose when it ships a release.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "hmps/bb-plugins/plugins/bb-plugin-hook-spike",
+      "reason": "The author's own name for it is a spike: 0.x, absent from `marketplace.json`. The repo IS listed, on its three mobile-web fixes.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "hmps/bb-plugins/plugins/t3sidebar",
+      "reason": "A fork of a plugin the list already carries upstream (SawyerHood/bb-plugin-t3sidebar and smsunarto's GTD Sidebar, both listed). A directory that points at three copies of one plugin is worse than one that points at the original.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "hmps/bb-plugins/plugins/usage-tracker",
+      "reason": "A fork of MateoCerquetella's usage-tracker, which is already listed; its LICENSE still carries Mateo Cerquetella's copyright. Listed upstream, not here.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "patleeman/bb-plugins/packages/bb-plugin-gtd-sidebar",
+      "reason": "A vendored copy of somebody else's plugin: package.json declares name `@smsunarto/bb-plugin-gtd-sidebar` version 0.4.1, byte-for-byte the version smsunarto publishes to npm, and it landed here in a single commit on 2026-08-24. The upstream is already listed under smsunarto/bb-plugins. Nothing against the code — it is not this repo's plugin to list.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "patleeman/bb-plugins/packages/bb-plugin-copy-session-id",
+      "reason": "Too thin: `server.ts` is `export default function plugin(_bb) {}` and the whole plugin is one content script adding a Copy session ID row to the sidebar context menu. Real and harmless, but there is no entry to write that a reader would act on. Re-propose if it grows.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "burningportra/bb-agent-flywheel",
+      "reason": "Nobody but the author can install it. `@get-bb/plugin-sdk` is a devDependency pinned to `file:./vendor/get-bb-plugin-sdk-0.4.15.tgz`, `vendor/` is gitignored and not committed, so `npm install` on a clean clone dies with ENOENT — measured — which kills both the README's own quick-install and the `bb plugin install git:` form. The README blames npm for not carrying 0.4.15, which is no longer true (0.4.15 published 2026-08-23, 0.4.16 on 2026-08-24). The plugin itself is strong — a bead DAG in SQLite, graph routing, hidden worker threads per bead, a review gate, a mirror onto the builtin tasks plugin — so re-propose the moment that devDependency points at the published SDK.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "burningportra/bb-plugin-prompt-suggester",
+      "reason": "Does not do what it claims. The headline is ghost text you accept with one key; there is no keyboard handling anywhere in the repo — `ghostAcceptKeys` and `displayMode` are plumbed through settings, config, store and RPC and nothing consumes them, and app.tsx renders the same Accept/Dismiss card either way, citing a content script the package.json does not declare and the tree does not contain. `bb suggester enable/disable` mutates an in-process variable and never writes settings, so it resets on reload. The README's own `install …@v0.1.0` points at a tag that does not exist (zero tags, zero releases). It is also only narrowly distinct from bb-plugin-next-steps, already listed, which implements the key-accept this one advertises.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "Flame119052/bb-plugin-opencode2",
+      "reason": "Mostly other people's code. The provider half is bb's own builtin `provider-acp` bridge vendored nearly verbatim and pointed at `opencode2 acp` (diffed against the shipped source map: 0 differing lines in visibility.ts, 2 in profiles.ts, 2 in tool-call-operation.ts); the usage half is a fork of MateoCerquetella's usage-tracker, already listed, whose LICENSE still reads Copyright Mateo Cerquetella. The one new thing, \"native skill routing\", is 27 lines that rewrite `/name` into an English sentence asking the model to use OpenCode's skill tool — a prompt nudge, not tool routing. It also ships unused vendored credential-reading code (`src/bridge/provider-maintenance.ts` reads Cursor keychain and auth tokens; nothing imports it) inside full-trust code that launches a local CLI. Three commits, all 2026-08-23. Re-propose if the vendored bridge thins out.",
+      "at": "2026-08-25"
     }
   ],
-  "listedAs": []
+  "listedAs": [
+    {
+      "plugin": "hmps/bb-plugins/plugins/ios-composer-touch",
+      "as": "hmps/bb-plugins",
+      "note": "Covered by the repo-level hmps/bb-plugins entry, which names all three mobile-web fixes in one sentence rather than repeating the same iPhone caveat three times. The entry text cannot name the directory, so the sweep cannot match it.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "hmps/bb-plugins/plugins/ios-status-bar",
+      "as": "hmps/bb-plugins",
+      "note": "Covered by the repo-level hmps/bb-plugins entry, which names all three mobile-web fixes in one sentence rather than repeating the same iPhone caveat three times. The entry text cannot name the directory, so the sweep cannot match it.",
+      "at": "2026-08-25"
+    },
+    {
+      "plugin": "hmps/bb-plugins/plugins/mobile-large-editor",
+      "as": "hmps/bb-plugins",
+      "note": "Covered by the repo-level hmps/bb-plugins entry, which names all three mobile-web fixes in one sentence rather than repeating the same iPhone caveat three times. The entry text cannot name the directory, so the sweep cannot match it.",
+      "at": "2026-08-25"
+    }
+  ]
 }
