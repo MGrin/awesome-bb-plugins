@@ -140,10 +140,12 @@ async function searchRepos() {
 // A package.json `name` is what the author INTENDS to publish, not what is
 // published. Reporting it as an npm package without asking the registry was
 // wrong 21 times out of 22 on 2026-08-15, and wrong about bb-plugin-slopcop on
-// 2026-08-12. It matters because a plugin in a monorepo subdirectory cannot be
-// installed with the `git:` form at all (get-bb/bb#1097), so for those the npm
-// name is the ONLY install route an entry can offer — and a fabricated one
-// sends the reader to a command that cannot work.
+// 2026-08-12. It used to matter more than it does: until get-bb/bb#1097 closed
+// on 2026-08-14 a monorepo subdirectory plugin could not use the `git:` form at
+// all, so the npm name was its ONLY install route. `bb plugin install
+// --subdirectory <path>` covers those now, and a fabricated npm name is still a
+// command that cannot work — just no longer the difference between installable
+// and not.
 //
 // Unknown is not the same as absent: a registry that times out must not silently
 // turn every package into a 404, so a failed lookup returns null and the caller
@@ -389,10 +391,12 @@ const lines = [
     (c) =>
       `- [ ] [${c.name}](${c.url}) — ${c.desc || "_no description_"}  \n      ` +
       `<sub>${c.why} · ${c.fullName}${c.npm ? ` · npm \`${c.npm}\`` : ""}` +
-      // A subdirectory plugin cannot use the `git:` form (get-bb/bb#1097). With
-      // no npm package either, there is no documented install route at all —
-      // say so here rather than leaving whoever triages it to find out.
-      `${c.path && !c.npm ? " · **no install route: monorepo subdir, not on npm**" : ""}` +
+      // A subdirectory plugin needed an npm package to be installable at all
+      // until get-bb/bb#1097 closed on 2026-08-14; `bb plugin install
+      // --subdirectory <path>` installs one from git now, so the old "no install
+      // route" warning was false and is gone. The path is still worth printing:
+      // whoever triages it has to name the subdirectory in the entry.
+      `${c.path ? ` · monorepo subdir \`${c.path}\`` : ""}` +
       ` · found by ${c.how} · ${c.stars}★ · last push ${c.pushed}</sub>`,
   ),
 ];
