@@ -231,6 +231,17 @@ Conventions this ecosystem has settled on:
   installs run `npm install --omit=dev`, so a `devDependencies` entry that `server.ts` imports
   fails the build and the plugin cannot be installed at all. This is the single most common
   breakage on this list.
+- The exception is the frontend modules **bb injects itself**. Its build rewrites those imports
+  to `globalThis.__bbPluginRuntime` and never resolves them from `node_modules`, so they are
+  safe in `devDependencies` and belong there. Read off bb 0.39.0's own shim table on
+  2026-08-25: `react`, `react-dom`, `react-dom/client`, `react/jsx-runtime`,
+  `react/jsx-dev-runtime`, `@get-bb/plugin-sdk/app`, `sonner`, `vaul`, `@pierre/diffs`,
+  `@pierre/diffs/react`, and ten `@radix-ui/react-*` packages — alert-dialog, context-menu,
+  dialog, dropdown-menu, hover-card, menubar, navigation-menu, popover, select, tooltip.
+  `zod` is **not** on that list, which is exactly why it is the one that keeps breaking builds.
+  Judge a plugin by whether a clean `npm install --omit=dev` plus `bb plugin build .` succeeds,
+  not by reading its `package.json` — `react` and `sonner` in `devDependencies` look like the
+  fatal mistake and are not it.
 - `private: true` is fine and does **not** block a `git:` install — it only stops `npm publish`.
   (This entry used to claim the opposite. Verified against the installer's own steps on
   2026-08-15.) It does mean there is no npm package, which since
