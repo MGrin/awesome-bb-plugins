@@ -184,6 +184,41 @@
       "plugin": "andrewkchan/bb-plugin-monaco",
       "reason": "Listed on 2026-08-25 and removed on 2026-08-31: bb absorbed it. get-bb/bb#2127 'Ship the Monaco editor as a builtin plugin' merged 2026-08-25T23:06:45Z, and 24 minutes later the author committed 'Mark the plugin deprecated in the README' and archived the repo — the README now says outright that recent bb versions ship Monaco out of the box and the plugin is no longer maintained. Confirmed on this machine: bb 0.40.0 carries builtin:monaco-editor@0.1.0, so installing this would duplicate a bundled plugin, which is the same ground as the vendored-copy declines. Nothing was wrong with the plugin. Do not re-propose unless bb drops the builtin.",
       "at": "2026-08-31"
+    },
+    {
+      "plugin": "ai-ecoverse/bb-copilot",
+      "reason": "Real plugin and it works, but bb-plugin-copilot (balazstasi) is already listed and does the same job: same provider id acp-copilot, same `copilot --acp` launch, same managed ACP entry, same needs-configuration on a missing CLI. The genuine difference is version currency, not function — this one writes the provider-acp plugin's `customAgents` setting and strips the deprecated `customAcpAgents` array that bb 0.41 removes — which is a swap decision for the list owner, not a second Providers row saying the same sentence twice. Also thin for full-trust code that writes another plugin's settings: 6 commits over 4 days, 0 stars, no LICENSE, four of six commits authored by coding agents. It carries the listed entry's PATH caveat worse — findBinary() only checks accessSync(path, X_OK) with no `--version` probe, so any executable named `copilot` is registered, including the unrelated AWS ECS Copilot CLI. One live bug: `existing.command.includes(delimiter)` tests for the PATH list separator, so the reuse branch is dead on macOS and Linux. Re-propose as a REPLACEMENT for the listed entry once bb 0.41 makes the config.json path fail.",
+      "at": "2026-08-31"
+    },
+    {
+      "plugin": "bjacobso/bb-exe",
+      "reason": "Real, competent, MIT, and distinct — nothing in Host & environment clones a disposable VM and enrols it as a bb host. Declined on maturity, on the author's own words: version 0.2.0-alpha.1, README says 'Status: early alpha ... It has not yet been exercised against a production exe.dev account' and 'A production run with real bb and exe.dev credentials remains required before a stable release'; SPEC.md still lists incomplete orphan GC and pushed-branch detection, and says the exe.dev API was checked against documentation, not against the API. The tests are real but run entirely against createFakePluginHost with a stubbed fetch, so nothing here has provisioned or deleted a VM. That matters more than usual because the failure mode is spending money on cloud VMs and deleting them: a stranger installing it off this list would be the first to run the destroy path for real. Re-propose once the author reports a live smoke run and the alpha banner comes off.",
+      "at": "2026-08-31"
+    },
+    {
+      "plugin": "csells/bb-plugins/plugins/project-files",
+      "reason": "The code is real and read-only as advertised, built on the SDK with no shelling out and tests on both halves. Declined on maintenance and, marginally, distinctness: the repo was created 2026-08-29T17:01:13Z and pushed ten seconds later, has exactly one commit, 0 stars, no LICENSE file anywhere, and a root package.json marked private — there is no maintenance record to judge and no licence, so a stranger cannot legally reuse it. The list already carries three file browsers (bb-plugin-files, bb-plugin-filetree, Server File Explorer); its honest distinction is spanning every project's configured sources plus the worktree environments of that project's threads across connected hosts, which is a real but narrow axis. Re-propose once the repo has history and a licence — the code is not the problem.",
+      "at": "2026-08-31"
+    },
+    {
+      "plugin": "hazihell/bb-plugin-tasks-plus",
+      "reason": "A vendored copy of a plugin bb already ships, which is an exclusion on its own. The first commit is 'Port BB's built-in tasks plugin as tasks-plus', forked at tag desktop-v0.40.0, and the README opens 'A personal fork of BB's built-in Tasks plugin'; package.json is private and v0.1.0, and the MIT LICENSE is upstream's, carried over with upstream's copyright holder. The added features are real (blocker relations with cycle detection, nested subtask rows, collapsible status groups, a task_artifacts table with CLI and detail-view surfaces) but they sit on a full copy of upstream, so installing it means disabling the builtin, hand-copying ~/.bb/plugins/tasks/data.db, and thereafter tracking upstream by manually diffing release tags and redoing five import rewrites — the README says so itself. 18 commits by one author over three days is not enough track record to ask a reader to swap out a bundled plugin.",
+      "at": "2026-08-31"
+    },
+    {
+      "plugin": "kaviisuri/bb-plugin-notifications",
+      "reason": "An empty scaffold, not a working plugin. Both declared entry points have empty bodies — server.ts is `export default function plugin(_bb: BbPluginApi): void {}` and app.tsx is `definePluginApp(() => {})` — so it contributes no CLI command, tool, panel or notification. The README says so: 'This repository currently contains only the backend and frontend plugin scaffold. Notification behavior is intentionally out of scope for the initial setup.' It is also `private: true` with `license: UNLICENSED` and a LICENSE reading 'private and proprietary. No permission is granted to use, copy, modify, publish, distribute', so a reader who found it here could not legally install it. One commit ever (b8f346c, 2026-08-07, 'chore: scaffold BB notifications plugin'). Re-propose if the notification behaviour lands and the licence opens.",
+      "at": "2026-08-31"
+    },
+    {
+      "plugin": "smsunarto/bb-plugins/plugins/nanocodex",
+      "reason": "The provider is genuinely implemented (bb.providers.register over src/{binding,session,auth,storage,catalog}.ts with 11 test files), but it is not ready for a stranger: version 0.0.0, no README in the directory, zero `nanocodex/v*` tags on the remote so the documented git install cannot resolve a release, and its only devDependency is a pkg.pr.new commit-pinned preview build of nanocodex itself. Every other plugin this repo publishes is already listed. Re-propose once it is tagged, released and carries a README.",
+      "at": "2026-08-31"
+    },
+    {
+      "plugin": "hmps/bb-plugins/plugins/github-plus",
+      "reason": "An explicit vendored fork of bb's builtin github plugin, which is an exclusion. Its own README states 'This plugin is a fork of bb's builtin github plugin, version 0.2.1' and tells you to `bb plugin disable github` first to avoid duplicate panels, mentions and CLI. The implementation is substantial and real (1736-line server, gh-CLI auth, 5-minute background sync into SQLite, zod-validated rpc contract) — the ground is the vendored-copy rule, not quality. It is also absent from the repo's own marketplace.json, so the author has not published it. Re-propose if it stops being a fork of the bundled plugin, or if bb drops the builtin.",
+      "at": "2026-08-31"
     }
   ],
   "listedAs": [
