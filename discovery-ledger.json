@@ -179,6 +179,11 @@
       "plugin": "Flame119052/bb-plugin-opencode2",
       "reason": "Mostly other people's code. The provider half is bb's own builtin `provider-acp` bridge vendored nearly verbatim and pointed at `opencode2 acp` (diffed against the shipped source map: 0 differing lines in visibility.ts, 2 in profiles.ts, 2 in tool-call-operation.ts); the usage half is a fork of MateoCerquetella's usage-tracker, already listed, whose LICENSE still reads Copyright Mateo Cerquetella. The one new thing, \"native skill routing\", is 27 lines that rewrite `/name` into an English sentence asking the model to use OpenCode's skill tool — a prompt nudge, not tool routing. It also ships unused vendored credential-reading code (`src/bridge/provider-maintenance.ts` reads Cursor keychain and auth tokens; nothing imports it) inside full-trust code that launches a local CLI. Three commits, all 2026-08-23. Re-propose if the vendored bridge thins out.",
       "at": "2026-08-25"
+    },
+    {
+      "plugin": "andrewkchan/bb-plugin-monaco",
+      "reason": "Listed on 2026-08-25 and removed on 2026-08-31: bb absorbed it. get-bb/bb#2127 'Ship the Monaco editor as a builtin plugin' merged 2026-08-25T23:06:45Z, and 24 minutes later the author committed 'Mark the plugin deprecated in the README' and archived the repo — the README now says outright that recent bb versions ship Monaco out of the box and the plugin is no longer maintained. Confirmed on this machine: bb 0.40.0 carries builtin:monaco-editor@0.1.0, so installing this would duplicate a bundled plugin, which is the same ground as the vendored-copy declines. Nothing was wrong with the plugin. Do not re-propose unless bb drops the builtin.",
+      "at": "2026-08-31"
     }
   ],
   "listedAs": [

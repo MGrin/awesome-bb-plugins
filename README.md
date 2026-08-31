@@ -2,7 +2,7 @@
 
 > Community plugins for [bb](https://getbb.app) — the agent IDE that builds itself.
 
-bb ships 18 official plugins bundled inside the app and [retired its own remote
+bb ships 21 official plugins bundled inside the app and [retired its own remote
 marketplace](https://github.com/get-bb/bb/pull/737) rather than running a central one, so
 third-party plugins are found by word of mouth. This list is the missing directory.
 
@@ -12,8 +12,8 @@ third-party plugins are found by word of mouth. This list is the missing directo
 bb plugin install git:https://github.com/<owner>/<repo>.git@main
 ```
 
-Some publish to npm as well — [27 packages carry the `bb-plugin`
-keyword](https://www.npmjs.com/search?q=keywords:bb-plugin) as of 2026-08-25 — and where an
+Some publish to npm as well — [25 packages carry the `bb-plugin`
+keyword](https://www.npmjs.com/search?q=keywords:bb-plugin) as of 2026-08-31 — and where an
 entry lists one, that is the shorter route:
 
 ```sh
@@ -118,7 +118,6 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [excalidraw](https://github.com/patleeman/bb-plugins) — Excalidraw boards inside bb.
 - [bb-plugin-excalidraw](https://github.com/Diffuzmetall/bb-plugin-excalidraw) — opens a workspace `.excalidraw` file as a canvas, with SHA-256 compare-and-swap agent tools, a `bb excalidraw` read/create/apply CLI, and a diagram-design skill.
 - [Server File Explorer](https://github.com/Willhong/bb-plugin-file-explorer) — read-only Files panel for the machine running the bb server, with folder navigation, an absolute-path bar, browser history and markdown shown rendered or raw.
-- [bb-plugin-monaco](https://github.com/andrewkchan/bb-plugin-monaco) — replaces bb's read-only file preview with Monaco wherever a file opens — chat links, panel file search, `bb thread open` — saving on ⌘S behind a SHA-256 compare-and-swap that offers Reload or Overwrite instead of clobbering an edit the agent made, plus a filterable file tree and fold/sort/copy-path quick-palette rows. Ships no LICENSE, so strictly nobody has been granted the right to use it yet.
 
 ## Code intelligence
 
@@ -233,11 +232,13 @@ Conventions this ecosystem has settled on:
   breakage on this list.
 - The exception is the frontend modules **bb injects itself**. Its build rewrites those imports
   to `globalThis.__bbPluginRuntime` and never resolves them from `node_modules`, so they are
-  safe in `devDependencies` and belong there. Read off bb 0.39.0's own shim table on
-  2026-08-25: `react`, `react-dom`, `react-dom/client`, `react/jsx-runtime`,
-  `react/jsx-dev-runtime`, `@get-bb/plugin-sdk/app`, `sonner`, `vaul`, `@pierre/diffs`,
-  `@pierre/diffs/react`, and ten `@radix-ui/react-*` packages — alert-dialog, context-menu,
-  dialog, dropdown-menu, hover-card, menubar, navigation-menu, popover, select, tooltip.
+  safe in `devDependencies` and belong there. Read off bb 0.40.0's own shim table on
+  2026-08-31: `react`, `react-dom`, `react-dom/client`, `react/jsx-runtime`,
+  `react/jsx-dev-runtime`, `@get-bb/plugin-sdk/app`, `sonner`, `vaul`, `clsx`,
+  `tailwind-merge`, `class-variance-authority`, `@pierre/diffs`, `@pierre/diffs/react`, and
+  ten `@radix-ui/react-*` packages — alert-dialog, context-menu, dialog, dropdown-menu,
+  hover-card, menubar, navigation-menu, popover, select, tooltip. The list GROWS: 0.40.0
+  added the last three, so re-read it rather than trusting this line.
   `zod` is **not** on that list, which is exactly why it is the one that keeps breaking builds.
   Judge a plugin by whether a clean `npm install --omit=dev` plus `bb plugin build .` succeeds,
   not by reading its `package.json` — `react` and `sonner` in `devDependencies` look like the
