@@ -88,7 +88,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [timeline-comments](https://github.com/brsbl/bb-plugins) — comment on the thread timeline.
 - [bb-plugin-next-steps](https://github.com/portseif/bb-plugin-next-steps) — suggests next steps above an empty composer.
 - [prompt-shaper](https://github.com/brsbl/bb-plugins) — improve a prompt before sending it.
-- [Mane Control](https://github.com/MacHatter1/bb-plugin-mane-control) — switches Ponytail between Off, Lite, Full and Ultra from the thread composer, shows the current mode on the horse control and styles the resulting mode commands in the timeline.
+- [Mane Control](https://github.com/MacHatter1/bb-plugin-mane-control) — switches Ponytail between Off, Lite, Full and Ultra from the thread composer, shows the current mode on the horse control and styles the resulting mode commands in the timeline. Requires [Ponytail](https://github.com/DietrichGebert/ponytail), which is an agent skill rather than a bb plugin and so is not listed here; without it the control blocks mode changes instead of failing quietly.
 - [auto-new-tab](https://github.com/patleeman/bb-plugins) · [sessions](https://github.com/patleeman/bb-plugins) · [prime-agent](https://github.com/patleeman/bb-plugins)
 - [bb-plugin-todo](https://github.com/agustif/bb-plugin-todo) — hierarchical session todos with nested sub-tasks, `dependsOn`/`requires`, and dispatch to multiple agents.
 - [bb-plugin-session-goal](https://github.com/agustif/bb-plugin-session-goal) — keeps a session's goal and success criteria on a composer card so they stay in view.
