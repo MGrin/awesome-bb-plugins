@@ -72,6 +72,8 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 
 ## Threads & workflow
 
+
+- [Stale Resume](https://github.com/yegor-korobeynikov/bb-plugin-stale-resume) — catches the failure where a thread's Claude Code session file no longer exists once its working directory has changed, tells the parent thread instead of leaving the child silently dead, and brings it back with `bb stale-resume recover`; `check` and `status` from the same CLI.
 - [bb-plugin-advisor](https://github.com/salemsayed/bb-plugin-advisor) — reviews a coding thread with a second model in a hidden reviewer thread; a pre-final agent tool plus post-turn review, with findings that re-raise across turns until the reviewer re-checks and closes them.
 - [bb-plugin-bus](https://github.com/MGrin/bb-plugin-bus) — peer messaging between threads; addressed sends wake the recipient with a real turn, so no listener process is needed.
 - [bb-plugin-auto-sections](https://github.com/benegessarit/bb-plugin-auto-sections) — files task-keyed threads into sidebar sections automatically.
@@ -145,6 +147,8 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 
 ## Host & environment
 
+
+- [Terminal Jobs](https://github.com/ryanbbrown/bb-plugin-terminal-jobs) — runs a long terminal command as a durable job: state in the plugin's own SQLite, artifacts written on the target host, and an at-least-once completion notice delivered to one immutable owner thread, so the verdict outlives the session that started it. Backend only — `bb terminal-job run|watch|show|retry-notification` and a `terminal-jobs` skill, with no panel, HTTP route or agent tool.
 - [bb-plugin-system](https://github.com/MGrin/bb-plugin-system) — CPU, memory, disk and top processes as a panel, homepage tiles and a `bb system` CLI.
 - [Wterm Terminal Preview](https://github.com/Diffuzmetall/bb-wterm-terminal-plugin) — early-preview Ghostty-backed alternative to bb's thread terminal with persistent reattachment, TUI mouse input, font controls and file upload for SSH and Herdr workflows. Drives bb's own terminal sessions rather than spawning its own, and uploads land in `.bb-wterm-uploads/` under the terminal's working directory. Built on an experimental SDK slot, so it is more exposed to bb UI churn than most entries.
 - [bb-plugin-worktree-setup](https://github.com/KaviiSuri/bb-plugin-worktree-setup) — per-repo worktree provisioning and git hooks.
@@ -186,6 +190,8 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 
 ## Notifications
 
+
+- [ntfy notifications](https://github.com/slogsdon/bb-plugin-ntfy) — pushes to your phone through [ntfy.sh](https://ntfy.sh) when a thread needs your attention, with `bb ntfy test|status` to check the wiring. The topic is a secret setting, which is the right call: on ntfy the topic name is the only thing between your notifications and anyone who guesses it.
 - [bb-plugin-ios-notifications](https://github.com/vburojevic/bb-plugin-ios-notifications) — Web Push to your iPhone when a thread finishes or fails.
 - [bb-plugin-notify](https://github.com/agustif/bb-plugin-notify) — agent-to-user pings as an in-app toast or a webhook, with quiet hours.
 - [notify](https://github.com/smsunarto/bb-plugins/tree/main/plugins/notify) — native macOS notifications when a thread finishes or fails, posted by the bb window so they carry bb's icon and click through to the thread; holds them in a durable queue while bb is closed, plus a `notify_user` tool and a `bb notify` command. · npm `@smsunarto/bb-plugin-notify`

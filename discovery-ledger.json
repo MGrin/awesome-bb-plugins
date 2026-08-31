@@ -219,6 +219,21 @@
       "plugin": "hmps/bb-plugins/plugins/github-plus",
       "reason": "An explicit vendored fork of bb's builtin github plugin, which is an exclusion. Its own README states 'This plugin is a fork of bb's builtin github plugin, version 0.2.1' and tells you to `bb plugin disable github` first to avoid duplicate panels, mentions and CLI. The implementation is substantial and real (1736-line server, gh-CLI auth, 5-minute background sync into SQLite, zod-validated rpc contract) — the ground is the vendored-copy rule, not quality. It is also absent from the repo's own marketplace.json, so the author has not published it. Re-propose if it stops being a fork of the bundled plugin, or if bb drops the builtin.",
       "at": "2026-08-31"
+    },
+    {
+      "plugin": "portseif/bb-plugin-project-hub",
+      "reason": "Not installable. server.ts:its zod import imports zod, but zod is in devDependencies, and `bb plugin install git:` runs `npm install --omit=dev` — so the build dies on `Could not resolve \"zod\"` and nothing installs. Reproduced in a fresh clone on 2026-08-31 with the installer's exact steps against bb 0.40.0. One line in package.json fixes it. Re-propose once it builds; nothing else was held against it.",
+      "at": "2026-08-31"
+    },
+    {
+      "plugin": "portseif/bb-plugin-sidebar-folders",
+      "reason": "Not installable. server.ts:its zod import imports zod, but zod is in devDependencies, and `bb plugin install git:` runs `npm install --omit=dev` — so the build dies on `Could not resolve \"zod\"` and nothing installs. Reproduced in a fresh clone on 2026-08-31 with the installer's exact steps against bb 0.40.0. One line in package.json fixes it. Re-propose once it builds; nothing else was held against it.",
+      "at": "2026-08-31"
+    },
+    {
+      "plugin": "yhterrance/bb-plugin-usage",
+      "reason": "Not installable. server.ts:its zod import imports zod, but zod is in devDependencies, and `bb plugin install git:` runs `npm install --omit=dev` — so the build dies on `Could not resolve \"zod\"` and nothing installs. Reproduced in a fresh clone on 2026-08-31 with the installer's exact steps against bb 0.40.0. One line in package.json fixes it. Re-propose once it builds; nothing else was held against it.",
+      "at": "2026-08-31"
     }
   ],
   "listedAs": [
