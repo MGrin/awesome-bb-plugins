@@ -62,7 +62,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 
 - [bb-plugin-kimi](https://github.com/vburojevic/bb-plugin-kimi) — Kimi Code as an ACP provider.
 - [bb-plugin-factory-droid](https://github.com/bentossell/bb-plugin-factory-droid) — Factory Droid as an ACP provider.
-- [omp](https://github.com/patleeman/bb-plugins) — OMP provider integration.
+- [omp](https://github.com/patleeman/bb-plugins/tree/main/packages/bb-plugin-omp) — a pi-style OhMyPi provider with provider/model grouping (`openai-codex/gpt-5`, `openrouter/…`), intended to replace the bundled ACP omp.
 - [amp](https://github.com/smsunarto/bb-plugins/tree/main/plugins/amp) — Amp as an ACP provider through a bundled bridge over the official `@ampcode/sdk`; `/orb` in a thread's first prompt runs it in an Amp Orb sandbox, and Oracle sub-agent calls render as a card with a streaming trace. · npm `@smsunarto/bb-plugin-amp`
 - [bb-plugin-copilot](https://github.com/balazstasi/bb-plugin-copilot) — writes a managed `customAcpAgents` entry into bb's `config.json` so `copilot --acp --stdio` runs as provider `acp-copilot` through bb's own ACP client; a missing Copilot CLI is reported as needs-configuration instead of a load failure. Note the PATH probe accepts any binary named `copilot` that answers `--version`, including the unrelated AWS ECS Copilot CLI.
 - [bb-opencode](https://github.com/iamhenry/bb-opencode) — OpenCode as a provider over a detached `opencode serve` and the official `@opencode-ai/sdk` rather than bb's ACP guest: OpenCode agents picked in the composer, `/name` slash commands, permission asks on bb's native card, revert/redo, Task children bound to their own threads, and `bb opencode status|version|logs`. Pinned to OpenCode 1.18.x.
@@ -78,6 +78,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [bb-plugin-omniroute-acp](https://github.com/nuchareviews-beep/bb-plugin-omniroute-acp) — registers a locally-running [OmniRoute](https://github.com/diegosouzapw/OmniRoute) instance as a provider, with a real model dropdown backed by OmniRoute's own `/api/v1/models` so its auto-routing combos (`auto/smart`, `auto/coding`, `auto/cheap`) appear rather than one placeholder; turns go to its OpenAI-compatible completions endpoint, and a 5-minute background service polls its usage analytics into a `usage` RPC because bb-plugin-usage has no ingestion API to push into.
 - [bb-plugin-pi-gateways](https://github.com/nick8cyber/bb-addons/tree/main/plugins/bb-plugin-pi-gateways) — reaches Google AI Studio, TokenRouter, OpenRouter, NVIDIA Build, OpenCode Zen, the Kilo Code gateway and custom OpenAI-compatible endpoints through pi. OpenCode and Kilo are reached over HTTP by token, so neither CLI has to be running.
 - [bb-plugin-favorite-models](https://github.com/nick8cyber/bb-addons/tree/main/plugins/bb-plugin-favorite-models) — star a provider's models and pin them above the full list, for when a provider exposes hundreds. Russian README.
+- [ds4](https://github.com/patleeman/bb-plugins/tree/main/packages/bb-plugin-ds4) — configures a local DwarfStar ([antirez/ds4](https://github.com/antirez/ds4)) inference server that starts when its bb model is used and stops after idle.
 
 ## Threads & workflow
 
@@ -86,20 +87,20 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [bb-plugin-advisor](https://github.com/salemsayed/bb-plugin-advisor) — reviews a coding thread with a second model in a hidden reviewer thread; a pre-final agent tool plus post-turn review, with findings that re-raise across turns until the reviewer re-checks and closes them.
 - [bb-plugin-bus](https://github.com/MGrin/bb-plugin-bus) — peer messaging between threads; addressed sends wake the recipient with a real turn, so no listener process is needed.
 - [bb-plugin-auto-sections](https://github.com/benegessarit/bb-plugin-auto-sections) — files task-keyed threads into sidebar sections automatically.
-- [thread-organizer](https://github.com/brsbl/bb-plugins) — organize threads in the sidebar.
-- [thread-hover-cards](https://github.com/brsbl/bb-plugins) — preview a thread on hover.
-- [timeline-comments](https://github.com/brsbl/bb-plugins) — comment on the thread timeline.
+- [thread-organizer](https://github.com/brsbl/bb-plugins/tree/main/plugins/thread-organizer) — configurable workflow sections in the sidebar, with unread routing to an Inbox.
+- [thread-hover-cards](https://github.com/brsbl/bb-plugins/tree/main/plugins/thread-hover-cards) — previews a thread's status, its latest agent update and repository or PR context from the sidebar, on hover.
+- [timeline-comments](https://github.com/brsbl/bb-plugins/tree/main/plugins/timeline-comments) — attaches durable comment threads to selected text in a bb timeline.
 - [bb-plugin-next-steps](https://github.com/portseif/bb-plugin-next-steps) — suggests next steps above an empty composer.
-- [prompt-shaper](https://github.com/brsbl/bb-plugins) — improve a prompt before sending it.
+- [prompt-shaper](https://github.com/brsbl/bb-plugins/tree/main/plugins/improve-prompt) — adds an *Improve prompt* action to the composer that sends your rough draft to a hidden helper agent, which applies the `prompt-shaper` skill and returns a rewritten prompt in place for review before you send. (The package is `bb-plugin-prompt-shaper`; its directory is `improve-prompt`.)
 - [Mane Control](https://github.com/MacHatter1/bb-plugin-mane-control) — switches Ponytail between Off, Lite, Full and Ultra from the thread composer, shows the current mode on the horse control and styles the resulting mode commands in the timeline. Requires [Ponytail](https://github.com/DietrichGebert/ponytail), which is an agent skill rather than a bb plugin and so is not listed here; without it the control blocks mode changes instead of failing quietly.
-- [auto-new-tab](https://github.com/patleeman/bb-plugins) · [sessions](https://github.com/patleeman/bb-plugins) · [prime-agent](https://github.com/patleeman/bb-plugins)
+- [prime-agent](https://github.com/patleeman/bb-plugins/tree/main/packages/bb-plugin-prime-agent) — registers prime-agent as an ACP provider: installs the shim and logo, provisions the `customAcpAgents` config entry and reloads the server config.
 - [bb-plugin-todo](https://github.com/agustif/bb-plugin-todo) — hierarchical session todos with nested sub-tasks, `dependsOn`/`requires`, and dispatch to multiple agents.
 - [bb-plugin-session-goal](https://github.com/agustif/bb-plugin-session-goal) — keeps a session's goal and success criteria on a composer card so they stay in view.
 - [agentation](https://github.com/smsunarto/bb-plugins/tree/main/plugins/agentation) — click any element of the bb UI, including another plugin's surface, and file it as an annotation carrying the route, owning plugin id and DOM selector; staged batches are assigned to a thread from its composer, and agent tools acknowledge, reply to and resolve them. · npm `@smsunarto/bb-plugin-agentation`
 - [GTD Sidebar](https://github.com/smsunarto/bb-plugins/tree/main/plugins/gtd-sidebar) — replaces the sidebar thread list with an action-oriented inbox: a thread sits in Next Action or Waiting by whether you or the agent moves next, and snoozing it to a wake time or settling it shelves it. Renamed from t3sidebar at 0.4.0 — it installs under the new id as a separate plugin and shelves do not carry over, and `@smsunarto/bb-plugin-t3sidebar` is frozen at 0.3.0. Forked from bb's own `examples/plugins/t3sidebar` and built on experimental SDK slots. · npm `@smsunarto/bb-plugin-gtd-sidebar`
 - [Thread stages](https://github.com/ariofrio/ribbon/tree/main/plugins/bb-plugin-thread-stages) — supplies the Deferred/Idle/Active/Blocked/Completed workflow to Ribbon sidebar below, which draws it — as of v0.10.0 it no longer registers a sidebar replacement of its own, and without Ribbon installed it stores stages but displays nothing; a thread moves to Active when a turn or background command starts anywhere in its hierarchy and back to Idle when none are running, while the other three are only ever set by hand. `.` chords file the open thread and walk you to the next one, ⇧⌘. undoes the last filing, and Completed auto-archives after 7 days by default. `bb thread-stages list|show|update` from the CLI. (Renamed from Thread tasks.)
 - [Missing keyboard shortcuts](https://github.com/ariofrio/ribbon/tree/main/plugins/bb-plugin-missing-keyboard-shortcuts) — adds the shortcuts bb does not bind: ⌘[/⌘] for browser history, ⌘N/⇧⌘N for a new thread with or without the current thread's project, ⌘L to focus the primary composer, and ⇧⌘L / ⌃` to toggle a side chat or thread terminal.
-- [emoji-react](https://github.com/patleeman/bb-plugins) — adds one emoji button per configured reaction to the assistant-message text-selection menu; clicking one drafts a reply quoting the highlighted text.
+- [emoji-react](https://github.com/patleeman/bb-plugins/tree/main/packages/bb-plugin-emoji-react) — adds one emoji button per configured reaction to the assistant-message text-selection menu; clicking one drafts a reply quoting the highlighted text.
 - [bb-plugin-writing-check](https://github.com/qiantao94/bb-plugin-writing-check) — checks each English message you send for spelling and grammar in a hidden worker thread and inserts the corrections below the message; explanations are written in Simplified Chinese.
 - [Agent Checklists](https://github.com/patleeman/bb-plugins/tree/main/packages/bb-plugin-agent-checklists) — gives a thread a persisted list of steps the agent reads and ticks off through `agent_checklist_get` / `agent_checklist_update`, with progress in the workbench and a read-only detail view; state lives in the plugin's own SQLite store.
 - [Comprehension](https://github.com/patleeman/bb-plugins/tree/main/packages/bb-plugin-comprehension) — turns a message, a text selection or a whole thread into an HTML explainer, from a message action or the thread header. Needs bb ≥ 0.38.
@@ -151,7 +152,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [bb-plugin-filetree](https://github.com/rekon307/bb-plugin-filetree) — lazy-loading file tree in the side panel.
 - [Git Graph](https://github.com/GabZoFar/bb-plugin-git-graph) — read-only commit graph in a thread side panel, running git inside that thread's own environment — including one hosted on another connected machine, rather than on whichever repo the bb window happens to be pointing at.
 - [bb-plugin-md-annotate](https://github.com/DarrenTsung/bb-plugin-md-annotate) — Google-Docs-style inline comments on markdown.
-- [excalidraw](https://github.com/patleeman/bb-plugins) — Excalidraw boards inside bb.
+- [excalidraw](https://github.com/patleeman/bb-plugins/tree/main/packages/bb-plugin-excalidraw) — create and edit Excalidraw drawings, then attach them to a conversation.
 - [bb-plugin-excalidraw](https://github.com/Diffuzmetall/bb-plugin-excalidraw) — opens a workspace `.excalidraw` file as a canvas, with SHA-256 compare-and-swap agent tools, a `bb excalidraw` read/create/apply CLI, and a diagram-design skill.
 - [Server File Explorer](https://github.com/Willhong/bb-plugin-file-explorer) — read-only Files panel for the machine running the bb server, with folder navigation, an absolute-path bar, browser history and markdown shown rendered or raw.
 - [Audio Preview](https://github.com/braedonsaunders/bb-plugin-audio-preview) — claims fifteen audio extensions as a file-panel opener and renders an HTML5 player where bb's own preview returns "Preview not available for audio/mp4" — the file is served through a host preview URL at bb's one-hour TTL cap, and if the browser cannot decode that stream the bytes are re-read over rpc and played as a correctly-typed blob. Leaves `.mp4` and `.webm` to bb, since those containers are often video. Relative paths are rejected if they contain `..`, so a claimed file cannot escape its file root. One commit, and the repo was a week old when it was listed.
@@ -163,7 +164,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 ## Code intelligence
 
 - [bb-plugin-code-intelligence](https://github.com/mywwave/bb-plugin-code-intelligence) — tree-sitter code search and impact analysis. **(unmaintained — upstream archived the repo)**
-- [design-doctrine](https://github.com/brsbl/bb-plugins) — design guidance for agents.
+- [design-doctrine](https://github.com/brsbl/bb-plugins/tree/main/plugins/design-doctrine) — learn, browse and apply product-design rules drawn from your own bb feedback.
 - [Call Stacks](https://github.com/ebg1223/bb-plugin-callstack) — the agent publishes named call-stack flows into a thread panel, each frame carrying file:line, in/out types, the guarding condition, loop context and an added/modified/removed marker; publishing lints those frames against the workspace files, a re-hash on every thread idle flags frames whose files changed, and it ships a `bb callstack` CLI and a call-stack-driven-development skill.
 
 ## Host & environment
@@ -173,10 +174,10 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [bb-plugin-system](https://github.com/MGrin/bb-plugin-system) — CPU, memory, disk and top processes as a panel, homepage tiles and a `bb system` CLI.
 - [Wterm Terminal Preview](https://github.com/Diffuzmetall/bb-wterm-terminal-plugin) — early-preview Ghostty-backed alternative to bb's thread terminal with persistent reattachment, TUI mouse input, font controls and file upload for SSH and Herdr workflows. Drives bb's own terminal sessions rather than spawning its own, and uploads land in `.bb-wterm-uploads/` under the terminal's working directory. Built on an experimental SDK slot, so it is more exposed to bb UI churn than most entries.
 - [bb-plugin-worktree-setup](https://github.com/KaviiSuri/bb-plugin-worktree-setup) — per-repo worktree provisioning and git hooks.
-- [browser](https://github.com/jssblck/bb-plugins) — shared Chrome over CDP.
+- [browser](https://github.com/jssblck/bb-plugins/tree/main/plugin-browser) — lets agents drive **your own** Chrome through a browser extension, signed in as you are.
 - [bb-plugin-browser](https://github.com/MGrin/bb-plugin-browser) — drives a browser you already have (Brave, Chrome, Chromium, Edge, Vivaldi or Opera) over CDP on a profile of its own, headless by default; each thread gets its own tab named by CDP target id, so tabs survive plugin reloads and bb restarts, threads share cookies and logins but can never move each other's page, `browser_show` relaunches on screen when a login wall or CAPTCHA needs you, and the idle reaper only ever closes tabs the plugin opened.
-- [stay-awake](https://github.com/jssblck/bb-plugins) — keep the host awake while work runs.
-- [codex-environments](https://github.com/jssblck/bb-plugins) — Codex environment management.
+- [stay-awake](https://github.com/jssblck/bb-plugins/tree/main/plugin-stay-awake) — keeps macOS from idle-sleeping while bb runs. The display still sleeps and closing the lid still sleeps the machine.
+- [codex-environments](https://github.com/jssblck/bb-plugins/tree/main/plugin-codex-environments) — uses Codex local environment files for bb worktrees and services.
 - [bb-plugin-accounts](https://github.com/MGrin/bb-plugin-accounts) — Claude Max account usage and auto-switching, with thread auto-continue after a rate limit.
 - [bb-plugin-cf-tunnel](https://github.com/MGrin/bb-plugin-cf-tunnel) — reach bb remotely over your own Cloudflare Tunnel and Access policy, with expiring shared ports.
 - [agent-proxy](https://github.com/smsunarto/bb-plugins/tree/main/plugins/agent-proxy) — installs CLIProxyAPI and keeps it running as a launchd/systemd login service, so several Claude and Codex accounts answer on one loopback OpenAI/Anthropic/Gemini endpoint; OAuth sign-in, provider keys, usage and Claude Code/Codex wiring in a panel, plus a `bb agent-proxy` CLI. It installs a third-party binary as a login service that outlives bb. · npm `@smsunarto/bb-plugin-agent-proxy`
@@ -230,7 +231,6 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [Shortcut](https://github.com/andreasmcdermott/bb-plugin-shortcut) — the Shortcut stories assigned to you as a compact kanban grouped by workflow state, with `shortcut_list_assigned` / `shortcut_get_story` agent tools and a hand-off into a thread; the API token is a secret setting.
 - [Beads](https://github.com/olegtaratuhin/bbb) — browse and update [Beads](https://beads.gascity.com/) issues in a project panel, shelling out to the `bd` CLI as the source of truth rather than keeping its own copy; Beads must already be installed.
 - [bb-plugin-jenkins](https://github.com/suhye0n/bb-plugin-jenkins) — a second Jenkins plugin, aimed at deploys rather than browsing: star the jobs you ship, group them into your own folders, and fire parameterised builds or saved presets in one click, with live status on the homepage.
-- [telemetry](https://github.com/patleeman/bb-plugins) — usage telemetry.
 - [bb-plugin-exec-tracking](https://github.com/pixexid/llm-collab) — records provider/model/reasoning evidence per run.
 - [bb-plugin-argocd](https://github.com/Willhong/bb-plugin-argocd) — read-only Argo CD browser: application sync and health, managed resources, deploy history and pod logs, with agent tools and a `bb argocd` CLI.
 - [bb-plugin-jenkins](https://github.com/Willhong/bb-plugin-jenkins) — Jenkins jobs, builds and console logs as a panel, with agent tools, a `bb jenkins` CLI, and build triggering behind a confirmation.
@@ -255,7 +255,6 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 
 - [bb-plugin-ayu](https://github.com/vburojevic/bb-plugin-ayu) — ayu themes plus a palette explorer.
 - [bb-plugin-sidebar-sync](https://github.com/MGrin/bb-plugin-sidebar-sync) — keeps the sidebar arrangement — nav order, hidden rows, collapsed sections — the same in every bb UI; width and open state stay per-device.
-- [ds4](https://github.com/patleeman/bb-plugins) — design-system theming.
 - [bb-plugin-fontsize](https://github.com/jmporchet/bb-plugin-fontsize) — scales the whole interface from a sidebar footer button that cycles 13/16/20/26px, plus a settings panel with ±1px control; the size is stored per device.
 - [monokai](https://github.com/smsunarto/bb-plugins/tree/main/plugins/monokai) — dark Monokai palette that also repaints the terminal's 16 ANSI colors, the diff viewer's rows and gutters, the file tree's git-status column, inline code tokens and the composer stop button; dark appearance only. · npm `@smsunarto/bb-plugin-monokai`
 - [Breadcrumbs](https://github.com/ariofrio/ribbon/tree/main/plugins/bb-plugin-breadcrumbs) — puts a thread's section, project and ancestor threads before its title in the header, each part toggled on its own; the project name opens settings, rename and remove, and the section name opens what bb's own sidebar section header opens. Ancestors are off by default, and a fork is not an ancestor — bb gives it a `sourceThreadId` rather than a parent. (Renamed from Project header breadcrumb.)
@@ -288,7 +287,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 
 - [Plugin Studio](https://github.com/galligan/bb-plugin-studio/tree/main/plugins/studio) — inspect the plugins your bb has actually loaded from a nav panel: a read-only snapshot of their source and status, taken in-process rather than by starting a second runtime.
 - [bb-smithers-workflows](https://github.com/benvenker/bb-smithers-workflows) — plugin verification and release-gate workflows.
-- [create-plugin / validate-plugin-artifacts](https://github.com/brsbl/bb-plugins) — scaffolding and artifact validation scripts.
+- [create-plugin / validate-plugin-artifacts](https://github.com/brsbl/bb-plugins/tree/main/tooling) — scaffolding and artifact-validation scripts. These are repo tooling (`tooling/*.mjs`), not installable plugins.
 - [at-plugin](https://github.com/brsbl/bb-plugins/tree/main/plugins/at-plugin) — adds installed and community plugins to bb's existing `@` menu, so a plugin can be referenced in a conversation the way a file or thread is.
 - [BB UI Reference](https://github.com/phosphorco/bb-community-plugins/tree/main/plugins/bb-ui-reference) — a movable window comparing bb's plugin surface map and semantic palette against the running app, opened from a question-mark button in the Footer action surface; useful when deciding which surface a plugin should render into.
 
@@ -336,6 +335,23 @@ Conventions this ecosystem has settled on:
 Pull requests welcome. One entry per plugin: link, then a single sentence describing what
 it does, in the section that fits. Keep it factual — no marketing copy. A plugin qualifies
 if its `package.json` has a `bb` key or it imports `@bb/plugin-sdk`.
+
+**Link the plugin's directory, not its repo root.** In a monorepo, point at
+`.../tree/main/<path>`. Since [get-bb/bb#1097](https://github.com/get-bb/bb/issues/1097)
+closed, `--subdirectory` installs work, so a precise link is something a reader can act on
+rather than a place to start hunting.
+
+**One plugin can live in more than one repo, and every check here passes on a copy.**
+Mirrors and vendored snapshots build and install exactly as well as the original — an
+install reproduction says nothing about provenance. When the same plugin appears twice:
+
+- **Link the upstream**, meaning whichever repo the others name as their source, or failing
+  that the earliest to exist. Record the copies in `discovery-ledger.json` so the weekly
+  sweep does not re-propose them.
+- Compare `name` and `version` in `package.json` and hash the entry file — an identical
+  `server.ts` across two repos settles it in one step.
+- A vendored copy is not misconduct and is often documented by the copier. Declining the
+  mirror is about pointing readers at the maintainer, not about judging the copy.
 
 ## License
 

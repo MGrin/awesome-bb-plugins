@@ -12,7 +12,14 @@
     "  directory. Only needed when the entry text and the folder disagree.",
     "",
     "Nothing here is permanent. A plugin declined for being unfinished belongs in the list once",
-    "it is finished — delete the entry and the next sweep will propose it again."
+    "it is finished — delete the entry and the next sweep will propose it again.",
+    "",
+    "MIRRORS. The same plugin can appear in several repos, and a copy passes every check —",
+    "  it builds, it installs, its manifest is valid. So provenance is judged separately:",
+    "  list the repo the copies name as their SOURCE (or the earliest to exist) and decline",
+    "  the mirrors here, with the upstream named in the reason. Identical `name` + `version`",
+    "  plus a matching hash of the entry file is enough to establish it. Declining a mirror",
+    "  is not a judgement on the copier — it points readers at the maintainer."
   ],
   "declined": [
     {
