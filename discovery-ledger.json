@@ -234,6 +234,26 @@
       "plugin": "yhterrance/bb-plugin-usage",
       "reason": "Not installable. server.ts:its zod import imports zod, but zod is in devDependencies, and `bb plugin install git:` runs `npm install --omit=dev` — so the build dies on `Could not resolve \"zod\"` and nothing installs. Reproduced in a fresh clone on 2026-08-31 with the installer's exact steps against bb 0.40.0. One line in package.json fixes it. Re-propose once it builds; nothing else was held against it.",
       "at": "2026-08-31"
+    },
+    {
+      "plugin": "nazihkalo/bb-data-plugins/plugins/bb-plugin-dbt-lineage-focus",
+      "reason": "Not installable. server.ts:3 imports zod, but zod is in devDependencies (\"zod\": \"^4.3.6\") and `bb plugin install git:` runs `npm install --omit=dev`, so the build dies on `Could not resolve \"zod\"` and nothing installs. Reproduced in a fresh clone on 2026-09-01 with the installer's exact steps against bb 0.40.0; the repo has no npm-workspaces root, so a package-level install is the right test and it still fails. Moving zod to dependencies is the whole fix. Re-propose once it builds; nothing else was held against it.",
+      "at": "2026-09-01"
+    },
+    {
+      "plugin": "nick8cyber/bb-addons/plugins/bb-plugin-provider-agy",
+      "reason": "Not installable. src/provider-bridge.ts:44 imports `@get-bb/plugin-sdk/provider-bridge`, but `@get-bb/plugin-sdk` is in devDependencies, so under `npm install --omit=dev` the package is absent and the build dies on `Could not resolve \"@get-bb/plugin-sdk/provider-bridge\"`. Worth noting for other authors: bb externalises the BARE `@get-bb/plugin-sdk` specifier at build time, which is why an SDK in devDependencies usually passes — this SUBPATH is not externalised, so the usual exemption does not apply and the SDK has to be a real dependency here. Reproduced in a fresh clone on 2026-09-01 against bb 0.40.0. Its three siblings in the same repo build clean and are listed.",
+      "at": "2026-09-01"
+    },
+    {
+      "plugin": "masked8knights/bb-plugins-monorepo/packages/bb-plugin-prime-agent",
+      "reason": "Vendored snapshot, not the author's own plugin. The repo's own README carries a Source column naming upstream as patleeman/bb-plugins (packages/bb-plugin-prime-agent), refreshed by a `sync-plugins` automation. patleeman's prime-agent is already listed. Declining the mirror rather than the work: a directory should point at the maintainer, not at a copy.",
+      "at": "2026-09-01"
+    },
+    {
+      "plugin": "masked8knights/bb-plugins-monorepo/packages/bb-plugin-usage",
+      "reason": "Vendored snapshot, not the author's own plugin. The repo's README names upstream as MayankBansal12/bb-plugin-usage, which is already listed. Same reasoning as the prime-agent entry above.",
+      "at": "2026-09-01"
     }
   ],
   "listedAs": [
