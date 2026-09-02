@@ -150,6 +150,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 
 - [bb-plugin-files](https://github.com/Diffuzmetall/bb-plugin-files) — file browser and editor for a thread's environment.
 - [bb-plugin-filetree](https://github.com/rekon307/bb-plugin-filetree) — lazy-loading file tree in the side panel.
+- [VS Code Server](https://github.com/GantisStorm/bb-plugin-vscode-server) — embeds a configured code-server or VS Code Server instance in a thread's right panel, opening at the thread workspace or storage folder.
 - [Git Graph](https://github.com/GabZoFar/bb-plugin-git-graph) — read-only commit graph in a thread side panel, running git inside that thread's own environment — including one hosted on another connected machine, rather than on whichever repo the bb window happens to be pointing at.
 - [bb-plugin-md-annotate](https://github.com/DarrenTsung/bb-plugin-md-annotate) — Google-Docs-style inline comments on markdown.
 - [excalidraw](https://github.com/patleeman/bb-plugins/tree/main/packages/bb-plugin-excalidraw) — create and edit Excalidraw drawings, then attach them to a conversation.
