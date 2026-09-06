@@ -261,6 +261,86 @@
       "plugin": "masked8knights/bb-plugins-monorepo/packages/bb-plugin-usage",
       "reason": "Vendored snapshot, not the author's own plugin. The repo's README names upstream as MayankBansal12/bb-plugin-usage, which is already listed. Same reasoning as the prime-agent entry above.",
       "at": "2026-09-01"
+    },
+    {
+      "plugin": "smsunarto/bb-plugins/plugins/agent-trace",
+      "reason": "Real plugin (definePlugin server, backfill/check commands, an auth:\"local\" HTTP route, a trace-pump background service, an app entry) and the repo is well maintained, but it has no release: `git ls-remote --tags` carries 29 tag refs in 8 families and NONE for agent-trace, so the documented `bb plugin install <id>` cannot resolve a version. Same ground as the nanocodex decline above. Re-propose once a tag is pushed — the code is not the problem.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "smsunarto/bb-plugins/plugins/canvas",
+      "reason": "`private: true` in package.json and absent from the repo's own marketplace.json catalog, so it is not offered for installation. The seven installable ids the repo's README names are amp, agent-proxy, agentation, gh-stack, gtd-sidebar, monokai and notify, all of which are already listed here individually. Re-propose if it is published.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "smsunarto/bb-plugins/plugins/docs",
+      "reason": "`private: true` in package.json and not in the repo's marketplace.json catalog — not offered for installation. Re-propose if it is published.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "smsunarto/bb-plugins/plugins/kitchen-sink",
+      "reason": "`private: true` in package.json and not in the repo's marketplace.json catalog. The name is also literal: it is the author's personal composer commands and message embeds, bundled together rather than shipped as a plugin for anyone else. Re-propose if it is published.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "smsunarto/bb-plugins/plugins/novnc",
+      "reason": "In marketplace.json with a tagPrefix but `private: true` and NO tags on the remote for that family, so the documented install cannot resolve a release. Re-propose once it is published and tagged.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "smsunarto/bb-plugins/plugins/vimium",
+      "reason": "In marketplace.json with a tagPrefix but `private: true` and NO tags on the remote for that family, so the documented install cannot resolve a release. Re-propose once it is published and tagged.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "mateocerquetella/bb-plugins/plugins/action-topbar",
+      "reason": "The author disqualifies it: its own README opens with a WARNING saying it is experimental, has not been submitted to the marketplace, and requires matching BB core changes that are not released plus SDK 0.4.33. A stranger installing it today gets a plugin its author says will not work. Remove this entry when that warning goes.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "mateocerquetella/bb-plugins/plugins/save-my-model",
+      "reason": "A placeholder, not a plugin: server.ts is 2 lines and app.tsx is 6, holding a localStorage contract so a model choice survives until upstream BB PR #1964 lands. Its own README says it does not override bb's picker. Nothing for a reader to install and use. Re-propose if it grows into something after that PR.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "grrowl/bb-shared/plugin",
+      "reason": "Real plugin, carefully built — the RPC contract is fully implemented and the guest authz decision is deny-by-default, enforced in a Cloudflare worker that filters bb's bootstrap JSON and WebSocket frames. Declined on trust and readiness, not code. No LICENSE, no tag, no release; 90 commits in a 5-day burst then cold. The plugin's own README still calls it a \"Scaffold\" whose handlers \"still throw not implemented\", which is flatly false of the code that shipped, so a reader is misled about what they are installing. Its docs also record that the Cloudflare worker self-destructs 60 minutes after deploy unless manually claimed, and that a redeploy mints a new hostname invalidating every guest URL already handed out. And the access-control boundary is a CSS/DOM chrome shim pinned to bb 0.40.0 / commit 31a190d, so a bb upgrade degrades a security boundary rather than merely breaking a feature — while installing it grants a URL-holder live read or write into your threads. Re-propose once it has a licence, a release, and a README that matches the code.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "ryanbbrown/dotfiles/plugins/firstmate-queue",
+      "reason": "The proposed repo is one person's personal agent configuration (\"Personal coding-agent configuration and skills for Ryan Brown\"), not a plugin repo, and the plugin inside it is not installable as published: package.json pins `engines.bbPluginSdk` 0.4.36, a version never published to npm (the registry goes 0.4.35 -> 0.4.40), so the repo commits a 512KB SDK tarball built from a local bb checkout, and its build/verify steps point outside the directory a --subdirectory install would fetch. It is also incomplete on its own — the workflow it exists to serve lives in the parent repo's skills/firstmate-queue/SKILL.md, which hardcodes the author's own /Users/ryanbrown/code path, so a stranger gets the panel and none of the convention. 12 commits over three days and no LICENSE anywhere in the repo. The code itself is competent; re-propose once it stands alone with a licence and a published SDK floor.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "csells/bb-plugins/plugins/auto-pin",
+      "reason": "Real and does exactly what it claims — 15 lines subscribing to thread.created and pinning visible root threads, with tests. Declined on the same grounds as this repo's project-files above, which still hold: two commits total, 0 stars, and NO LICENSE file anywhere in the repo, so nobody has been granted the right to use it. Re-propose once the repo has a licence and some history — the code is not the problem.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "dishant1804/bb-plugin-codex-capacity",
+      "reason": "The Codex login-slot switching core genuinely works (host.ts copies ~/.codex/auth.json into per-slot files and restores one atomically), but the plugin is not finished for anyone but its author. accounts_list always injects two hardcoded slots, \"personal\" and \"work\", backed by ~/.codex-personal/auth.json and ~/.codex-work/auth.json — the author's own machine layout, never mentioned in the README, and an error for everyone else. Most of the `bb plugin new` scaffold was never cleaned out: the manifest still calls it \"Codex Capacity\" with a ListTodo icon, most of the README is the untouched scaffold text about \"a plugin that keeps a todo list\", and skills/example-todos/SKILL.md tells agents to run `bb codex-capacity list|add|done`, a CLI server.ts never registers. One commit, no LICENSE, not on npm, dist/ gitignored. Re-propose once the scaffold leftovers and the hardcoded personal/work paths are gone and it has a licence.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "hassanoigag/bb-plugin-multi-claude",
+      "reason": "A rename of a \"usage\" plugin with the identifiers left behind, and one of them is load-bearing: bb derives a plugin's id from the package name, so this installs as `multi-claude` while app.tsx hardcodes PLUGIN_ID = \"usage\" and fetches /api/v1/plugins/usage/rpc/getUsage — the entire UI half cannot reach its own RPC, and every RPC path and `bb plugin reload usage` line in the README points at the wrong plugin too. Two more: syncAcpConfig shells out `bb plugin config provider-acp set customAgents <its own array>` at every plugin start, overwriting whatever else registered there (bb-plugin-copilot, bb-auggie and bb-droid, all listed here, write into that same setting); and the env block it registers pins claude-sonnet-4-6/opus-4-6 while its wrapper advertises sonnet-5/opus-5/fable-5, so the model you pick is not the model that runs. One commit, no LICENSE despite the README claiming MIT, `bb plugin new` scaffold skill still in the tree, and a hardcoded /opt/homebrew/bin/claude-agent-acp path the author calls a thing auto-detection is \"planned\" for.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "jamie-thatch/bb-plugin-dependabot",
+      "reason": "A fork of charpeni's Dependabot plugin, which is already listed. Its only original commit changes 47 lines of server.ts — zod length bounds on advisory metadata, an https://github.com/ allowlist on alert URLs, and the untrusted-data warning moved above the advisory text in the fix prompt — plus a LICENSE and a test. Good hardening, but a second entry would carry a description indistinguishable from the one already there, giving a reader no way to choose. The right home for the change is a PR to charpeni. MIRROR: upstream is charpeni/bb-plugins/plugins/dependabot.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "jamie-thatch/bb-plugins/plugins/dependabot",
+      "reason": "MIRROR: the same fork as jamie-thatch/bb-plugin-dependabot above, subtree-merged into this marketplace repo — the git history literally contains charpeni's two authored commits and the LICENSE still reads \"Copyright (c) 2026 Nicolas Charpentier\". Upstream charpeni/bb-plugins/plugins/dependabot is already listed. Neither README credits the original author; only the retained LICENSE does.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "jamie-thatch/bb-plugins/plugins/linear",
+      "reason": "MIRROR: a republished copy of vburojevic/bb-plugin-linear, which is already listed. Version bumped 0.5.0 -> 0.5.1 with 253 changed lines against a ~104k-line plugin (and upstream files dropped), the LICENSE still reads \"Copyright (c) 2026 Vedran Burojević\", the package description is byte-identical to the string this list already quotes for the upstream entry, and the README rewrites the install path to point at this marketplace without naming the original author. Listing it would put a fork above the original with no signal that it is one.",
+      "at": "2026-09-07"
     }
   ],
   "listedAs": [
@@ -281,6 +361,42 @@
       "as": "hmps/bb-plugins",
       "note": "Covered by the repo-level hmps/bb-plugins entry, which names all three mobile-web fixes in one sentence rather than repeating the same iPhone caveat three times. The entry text cannot name the directory, so the sweep cannot match it.",
       "at": "2026-08-25"
+    },
+    {
+      "plugin": "ben-vargas/bb-plugins/plugins/full-width",
+      "as": "ben-vargas/bb-plugins",
+      "note": "Covered by the repo-level ben-vargas/bb-plugins entry under Appearance, which names all three plugins, their mechanisms and their caveats in one sentence. The entry text cannot name the directories, so the sweep cannot match them.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "ben-vargas/bb-plugins/plugins/project-activity-sort",
+      "as": "ben-vargas/bb-plugins",
+      "note": "Covered by the repo-level ben-vargas/bb-plugins entry under Appearance, which names all three plugins, their mechanisms and their caveats in one sentence. The entry text cannot name the directories, so the sweep cannot match them.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "ben-vargas/bb-plugins/plugins/xai-voice",
+      "as": "ben-vargas/bb-plugins",
+      "note": "Covered by the repo-level ben-vargas/bb-plugins entry under Appearance, which names all three plugins, their mechanisms and their caveats in one sentence. The entry text cannot name the directories, so the sweep cannot match them.",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "darknoon/bb-plugins/plugins/dev-servers",
+      "as": "darknoon/bb-plugins",
+      "note": "Covered by the repo-level darknoon/bb-plugins entry under Host & environment, which names both plugins. The entry text cannot name the directories, so the sweep cannot match them. (Its third plugin, whatsagent, added 2026-09-05, is NOT covered by that entry and is still an open candidate.)",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "darknoon/bb-plugins/plugins/startup",
+      "as": "darknoon/bb-plugins",
+      "note": "Covered by the repo-level darknoon/bb-plugins entry under Host & environment, which names both plugins. The entry text cannot name the directories, so the sweep cannot match them. (Its third plugin, whatsagent, added 2026-09-05, is NOT covered by that entry and is still an open candidate.)",
+      "at": "2026-09-07"
+    },
+    {
+      "plugin": "ymichael/bb-plugins/plugins/bb-office",
+      "as": "ymichael/bb-plugins",
+      "note": "Covered by the ymichael/bb-plugins entry under Appearance. The repo is a one-plugin collection, so the entry links the repo root rather than plugins/bb-office and the sweep cannot match the directory.",
+      "at": "2026-09-07"
     }
   ]
 }
