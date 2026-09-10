@@ -274,6 +274,7 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 - [bb-plugin-agent-plugins](https://github.com/patleeman/bb-plugins/tree/main/packages/bb-plugin-agent-plugins) — install an Agent Plugin — skills plus MCP servers — once and have it flow to every provider, instead of configuring each one separately.
 - [Feature Flags](https://github.com/mkucharek/bb-plugin-feature-flags) — a [LaunchDarkly](https://launchdarkly.com) sidebar page: one row per flag, one column per environment, each cell a toggle. Models a flag as a single entity whose on/off state alone is per-environment.
 - [bb-plugin-support-inbox](https://github.com/paul-cch/bb-plugin-support-inbox) — pulls in bug reports, clusters duplicates and drafts replies for review.
+- [Browser Session Import](https://github.com/GantisStorm/bb-plugin-browser-session-import) — imports cookies from a local Chrome, Edge, Arc, Brave, Comet, Helium or Firefox profile, or a JSON export, into the shared BB Browser session so existing and future ordinary tabs carry the same sign-ins; re-importing replaces the session, a Remove control clears it, and native profiles read on macOS and Linux only.
 
 ## Appearance
 
