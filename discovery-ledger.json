@@ -341,6 +341,66 @@
       "plugin": "jamie-thatch/bb-plugins/plugins/linear",
       "reason": "MIRROR: a republished copy of vburojevic/bb-plugin-linear, which is already listed. Version bumped 0.5.0 -> 0.5.1 with 253 changed lines against a ~104k-line plugin (and upstream files dropped), the LICENSE still reads \"Copyright (c) 2026 Vedran Burojević\", the package description is byte-identical to the string this list already quotes for the upstream entry, and the README rewrites the install path to point at this marketplace without naming the original author. Listing it would put a fork above the original with no signal that it is one.",
       "at": "2026-09-07"
+    },
+    {
+      "plugin": "smsunarto/bb-plugins/plugins/cloudflare",
+      "reason": "Not released. The author removed it from release-please on 2026-09-13 (270bf3f), `@smsunarto/bb-plugin-cloudflare` is 404 on npm, and the repo's own README catalogue does not list it, so its own author is holding it back. It also depends on the workspace package @bb-kit/core. The code is real: Cloudflare OAuth, tunnel ingress editing, cloudflared quick shares and Access-protected shares. Re-propose once it ships a release or appears in the author's catalogue.",
+      "at": "2026-09-14"
+    },
+    {
+      "plugin": "smsunarto/bb-plugins/plugins/last-turn-diff",
+      "reason": "Not installable by a stranger: package.json is `private: true`, it is missing from the repo's marketplace.json, there is no `last-turn-diff/v*` tag (0 of 29), npm returns 404, and it depends on `@bb-plugins/unity-inspector` as `workspace:*`. Same grounds as canvas, docs, novnc and vimium from this repo. Re-propose once it is in marketplace.json with a release tag.",
+      "at": "2026-09-14"
+    },
+    {
+      "plugin": "smsunarto/bb-plugins/plugins/my-stack",
+      "reason": "Personal tooling: seven skills that tell the agent to read `~/.agents/preferences/*.md`, which the plugin never creates (the server is an empty definePlugin). Its README calls it Scott's personal preference layer and a prototype, and says installing it on another host does not provision the directory. `private: true`, one commit. Same reason as the declined smsunarto dotfiles plugin.",
+      "at": "2026-09-14"
+    },
+    {
+      "plugin": "smsunarto/bb-plugins/plugins/traces",
+      "reason": "Not installable: the marketplace entry uses tagPrefix `traces/` and the remote has no traces tag, and 270bf3f (2026-09-13) removed it from release-please. Same grounds as agent-trace, novnc and vimium. It also overlaps patleeman's listed Traces heavily (Claude Code and Codex only; adds evidence labels, raw view and an adapter API). Re-propose once a traces/ tag ships, and list it beside patleeman's with the differences spelled out.",
+      "at": "2026-09-14"
+    },
+    {
+      "plugin": "mateocerquetella/bb-plugins/plugins/clean-my-context",
+      "reason": "A thin wrapper over core: the server passes straight through to `bb.sdk.threads.clearContext`, which bb 0.43.1 already ships as `bb thread clear [id]` with the same idle-or-failed rule, and its `bb clean-my-context clear` CLI copies that command. All it adds is a composer button behind window.confirm. Re-propose if it does more than core.",
+      "at": "2026-09-14"
+    },
+    {
+      "plugin": "avatar29a/midgard-ro/plugins/bb-plugin-grf-workbench",
+      "reason": "Project-internal tool: every handler runs `go build ./cmd/grfworkbench` or `./cmd/skillstudio` in the thread's working directory, so it only works inside a midgard-ro checkout, as its own (Russian-only) README says. `private: true`, no license, three commits.",
+      "at": "2026-09-14"
+    },
+    {
+      "plugin": "phosphorco/bb-community-plugins/plugins/cross-references",
+      "reason": "Empty on its own: it indexes reference projections other plugins push to it but creates none. Its README names Thread Links (phosphorco/bb-plugins, 404 to the API) and Machine Monitor as the sources, so a stranger installing it alone gets an empty index. v0.1.0, all commits authored by Codex, large rewrite 2026-09-13. Re-propose if Thread Links goes public or it starts reading messages itself.",
+      "at": "2026-09-14"
+    },
+    {
+      "plugin": "erwinkn/bb-plugins/plugins/plans",
+      "reason": "Not offered to strangers yet: the repo README opens 'A private GitHub collection of BB plugins', there is no LICENSE, package.json is `private: true`, and the plugin README still says to use the tested branch while its draft PR is open. The code is real and distinct from Plannotator and Codex Plan (versioned plans, annotations, version-bound approval). Re-propose once there is a license and the private framing is gone.",
+      "at": "2026-09-14"
+    },
+    {
+      "plugin": "erwinkn/bb-plugins/plugins/provider-usage-compact",
+      "reason": "A restyled copy of bb's built-in provider-usage plugin: its README credits bb's plugins/provider-usage at accd559 and installs by disabling the built-in; it reads the same `system.usageLimits` data with a compact layout. Also private-collection framing, no LICENSE, two commits.",
+      "at": "2026-09-14"
+    },
+    {
+      "plugin": "erwinkn/bb-plugins/plugins/questions",
+      "reason": "Not offered to strangers yet: the repo README calls it a private collection and its install section needs access 'to this private repository'; no LICENSE, no per-plugin README, repo eight days old. The code is real and goes beyond Grill. Re-propose if the author publishes it on purpose; it would belong under Threads & workflow.",
+      "at": "2026-09-14"
+    },
+    {
+      "plugin": "erwinkn/bb-plugins/plugins/sidebar",
+      "reason": "Private-collection framing, no LICENSE, eight-day-old repo with heavy churn (six commits on 2026-09-13), and it takes the exclusive thread-list slot that about ten listed replacements already use; its main addition is splitting pending input from unread replies. Re-propose once published as a licensed public collection and settled.",
+      "at": "2026-09-14"
+    },
+    {
+      "plugin": "erwinkn/bb-plugins/plugins/voice-mode",
+      "reason": "A fork of the listed Handsfree (swairshah/bb-handsfree at 79d5083), six commits since 2026-09-12, in a repo whose README calls itself a private collection. It also rewrites ~/.codex/auth.json when refreshing a Codex token. Re-propose if the author publishes it on purpose and it builds history apart from Handsfree.",
+      "at": "2026-09-14"
     }
   ],
   "listedAs": [
