@@ -87,6 +87,8 @@ Plugins are full-trust code running in the bb server. Read the source before ins
 
 ## Threads & workflow
 
+- [Backlog.MD](https://github.com/StreamlinedStartup/bb-plugin-backlog) lets you filter, sort and edit Backlog.md tasks in a live Kanban board across BB projects, with guarded Markdown writes and conflict review, without requiring the Backlog CLI.
+
 
 - [Stale Resume](https://github.com/yegor-korobeynikov/bb-plugin-stale-resume) — catches the failure where a thread's Claude Code session file no longer exists once its working directory has changed, tells the parent thread instead of leaving the child silently dead, and brings it back with `bb stale-resume recover`; `check` and `status` from the same CLI.
 - [bb-plugin-advisor](https://github.com/salemsayed/bb-plugin-advisor) — reviews a coding thread with a second model in a hidden reviewer thread; a pre-final agent tool plus post-turn review, with findings that re-raise across turns until the reviewer re-checks and closes them.
