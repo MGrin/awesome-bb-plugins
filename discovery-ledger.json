@@ -238,11 +238,6 @@
       "at": "2026-08-31"
     },
     {
-      "plugin": "yhterrance/bb-plugin-usage",
-      "reason": "Not installable. server.ts:its zod import imports zod, but zod is in devDependencies, and `bb plugin install git:` runs `npm install --omit=dev` — so the build dies on `Could not resolve \"zod\"` and nothing installs. Reproduced in a fresh clone on 2026-08-31 with the installer's exact steps against bb 0.40.0. One line in package.json fixes it. Re-propose once it builds; nothing else was held against it.",
-      "at": "2026-08-31"
-    },
-    {
       "plugin": "nazihkalo/bb-data-plugins/plugins/bb-plugin-dbt-lineage-focus",
       "reason": "Not installable. server.ts:3 imports zod, but zod is in devDependencies (\"zod\": \"^4.3.6\") and `bb plugin install git:` runs `npm install --omit=dev`, so the build dies on `Could not resolve \"zod\"` and nothing installs. Reproduced in a fresh clone on 2026-09-01 with the installer's exact steps against bb 0.40.0; the repo has no npm-workspaces root, so a package-level install is the right test and it still fails. Moving zod to dependencies is the whole fix. Re-propose once it builds; nothing else was held against it.",
       "at": "2026-09-01"
