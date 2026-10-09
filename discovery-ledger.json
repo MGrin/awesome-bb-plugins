@@ -396,6 +396,11 @@
       "plugin": "erwinkn/bb-plugins/plugins/voice-mode",
       "reason": "A fork of the listed Handsfree (swairshah/bb-handsfree at 79d5083), six commits since 2026-09-12, in a repo whose README calls itself a private collection. It also rewrites ~/.codex/auth.json when refreshing a Codex token. Re-propose if the author publishes it on purpose and it builds history apart from Handsfree.",
       "at": "2026-09-14"
+    },
+    {
+      "plugin": "masked8knights/bb-freebuff",
+      "reason": "Delisted by its author on 2026-10-09: freebuff does not allow its agent to be driven from outside its own application. Used externally, upstream returned `401 Invalid API key or user not found` and the freebuff CLI rendered `This account is suspended. If this is a mistake, contact support@codebuff.com.`, so the integration cannot work reliably. The author also withdrew it from get-bb/marketplace (PR #517). Do not re-list unless freebuff supports external clients.",
+      "at": "2026-10-09"
     }
   ],
   "listedAs": [
