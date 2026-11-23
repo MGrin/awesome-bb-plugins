@@ -36,6 +36,9 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Check report publication
+        run: node --test scripts/*.test.mjs
+
       - name: Sweep for unlisted plugins
         id: sweep
         env:
@@ -48,20 +51,27 @@ jobs:
           node scripts/discover.mjs > report.md
           if [ -s report.md ]; then echo "found=true" >> "$GITHUB_OUTPUT"; else echo "found=false" >> "$GITHUB_OUTPUT"; fi
 
+      # Upload the original stdout before preparing or publishing a preview.
+      # A failed upload leaves the previous issue body intact.
+      - name: Retain the complete discovery report
+        if: steps.sweep.outputs.found == 'true'
+        id: report
+        uses: actions/upload-artifact@v7
+        with:
+          name: discovery-report
+          path: report.md
+          if-no-files-found: error
+
       - name: Open or update the tracking issue
         if: steps.sweep.outputs.found == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISCOVERY_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          DISCOVERY_ARTIFACT_URL: ${{ steps.report.outputs.artifact-url }}
         run: |
           set -euo pipefail
           TITLE="Unlisted bb plugins"
-          {
-            cat report.md
-            echo
-            echo "---"
-            echo "_Swept by [\`scripts/discover.mjs\`](../blob/main/scripts/discover.mjs) on $(date -u '+%Y-%m-%d'). "
-            echo "This issue is rewritten each run, so ticking a box will not survive — add the entry to README.md instead._"
-          } > issue.md
+          node scripts/issue-preview.mjs report.md > issue.md
           # One issue, updated in place. A new issue per week would be its own
           # kind of noise, and the point is a list that stays current.
           NUM=$(gh issue list --state open --search "$TITLE in:title" --json number,title \
